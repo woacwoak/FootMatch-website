@@ -1,0 +1,161 @@
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+}
+
+main {
+    text-align: center;
+}
+footer {
+    background-color: #BBF7D0;
+    color: #16A34A;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+header {
+    display: flex;
+    text-align: left;
+    align-items: center;
+    margin-bottom: 0px;
+    border-bottom: 1px solid black;
+    width: 1440px;
+    height: 78px;
+}
+
+nav {
+    margin-left: 150    px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#title {
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #16A34A;
+    margin-left: 60px;
+    
+}
+
+#find-game-btn {
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #16A34A;
+    background-color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    font-size: 18px;
+}
+#how-it-works-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: #16A34A;
+    margin-top: 20px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    padding: 40px;
+}
+#card-text {
+    font-size: 24px;
+    margin-top: 10px;
+    color:#16A34A;
+    margin-bottom: 0px;
+    padding:0px;
+}
+
+
+.card-container {
+    padding-top: 20px;
+    margin:0px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.card {
+    background-color:white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 380px;
+    height: 300px;
+    margin-bottom: 100px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
+    border-color: #16a34a;
+    
+}
+
+
+h2 {
+    font-family: "Poppins", sans-serif;
+    font-size: 50px;
+    font-weight: 600;
+    color: white;
+    margin-left: 20px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    padding-top: 80px;
+}
+h3 {
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: white;
+    margin-left: 20px;
+    margin-top: 0px;
+    margin-bottom: 15px;
+    padding-top: 0px;
+}
+
+
+p {
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: black;
+    margin-left: 20px;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+a {
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: black;
+    text-decoration: none;
+    margin-left: 30px;
+}
+a:visited {
+    color: black;
+}
+
+a:hover {
+    color: #16a34a;
+}
+
+a:active {
+    color: purple;
+}
+
+div {
+    width: "width=device-width, initial-scale=1.0";
+    background-color: green;
+}
