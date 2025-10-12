@@ -1,18 +1,3 @@
-body {
-    font-family: "Poppins", sans-serif;
-    margin: 0;
-}
-
-main {
-    text-align: center;
-}
-footer {
-    background-color: #BBF7D0;
-    color: #16A34A;
-    text-align: center;
-    padding: 1rem 0;
-}
-
 header {
     display: flex;
     text-align: left;
@@ -22,47 +7,60 @@ header {
     width: 1440px;
     height: 78px;
 }
-
 nav {
     margin-left: 170px;
     display: flex;
     align-items: center;
     gap: 30px;
 }
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #1e293b;
+    background-color: white;
+}
+
+main {
+    text-align: center;
+}
+footer {
+    background-color: #BBF7D0;
+    color: #16A34A;
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 40px;
+}
 
 #title {
     font-family: "Poppins", sans-serif;
     font-size: 24px;
-    font-weight: 800;
+    font-weight: bold;
     color: #16A34A;
     margin-left: 60px;
-    
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+#hero-container {
+    margin: 0 auto;
+    padding-bottom: 110px;
+    padding-top: 90px;
 }
 
 #find-game-btn {
     font-family: "Poppins", sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     color: #16A34A;
     background-color: white;
     border: none;
     border-radius: 30px;
-    padding: 10px 20px;
     cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 80px;
-    font-size: 18px;
+    padding: 10px 25px;
+
 }
-#how-it-works-title {
-    font-family: "Poppins", sans-serif;
-    font-size: 30px;
-    font-weight: 600;
-    color: #16A34A;
-    margin-top: 20px;
-    margin-left: 0px;
-    margin-bottom: 0px;
-    padding: 40px;
-}
+
 #card-text {
     font-size: 24px;
     margin-top: 10px;
@@ -70,7 +68,10 @@ nav {
     margin-bottom: 0px;
     padding:0px;
 }
-
+#map-section {
+    text-align: center;
+    background-color: #BBF7D0;
+}
 
 .card-container {
     padding-top: 20px;
@@ -102,27 +103,30 @@ nav {
     
 }
 
-
-h2 {
-    font-family: "Poppins", sans-serif;
-    font-size: 50px;
-    font-weight: 600;
+.hero-title {
     color: white;
-    margin-left: 20px;
-    margin-top: 0px;
+    font-size: 42px;
+    font-weight: bold;
     margin-bottom: 20px;
-    padding-top: 80px;
+    margin-top: 20px;
 }
-h3 {
-    font-family: "Poppins", sans-serif;
-    font-size: 30px;
-    font-weight: 600;
-    color: white;
-    margin-left: 20px;
-    margin-top: 0px;
-    margin-bottom: 15px;
-    padding-top: 0px;
+
+.hero-subtitle {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 30px;
+  opacity: 0.9;
 }
+
+.section-title {
+    color: #16a34a;
+    font-size: 32px;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    font-weight: bold;
+}
+
+
 
 
 p {
@@ -130,7 +134,7 @@ p {
     font-size: 20px;
     font-weight: 400;
     color: black;
-    margin-left: 20px;
+    margin-left: 0px;
     margin-top: 0px;
     padding-top: 0px;
 }
@@ -158,4 +162,11 @@ a:active {
 div {
     width: "width=device-width, initial-scale=1.0";
     background-color: green;
+}
+
+iframe {
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
 }
