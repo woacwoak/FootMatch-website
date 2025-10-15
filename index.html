@@ -8,27 +8,50 @@
     <meta property="og:type" content="website" />
     <title>FootMatch</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
+    <link href="./css/reset.css" rel="styleshheet" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="./js/script.js" defer></script>
+    <script src="./js/navigation.js" defer></script>
 </head>
 
 <body>
     <!-- ================= HEADER ================= -->
-    <header>
-        <div class="header-container">
-            <p id="title">FootMatch</p>
-            <nav>
-                <a href="#">Home</a>
+    <section id="header">
+        <header>
+            <div class="header-container">
+                <p id="title">FootMatch</p>
+
+                <nav id="header-nav">
+                    <a href="#header">Home</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#">Available Games</a>
+                    <a href="#">Create Game</a>
+                </nav>
+
+                <div id="header-right">
+                    
+                    <div class="btn-spacer">
+                        <button class="btn" id="sign-up-btn">Sign Up</button>
+                        <button class="btn" id="join-now-btn">Join Now</button>
+                    </div>
+
+                    <div class="hamburger">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <nav id="hamburger-header-nav">
+                <a href="#header">Home</a>
                 <a href="#how-it-works">How It Works</a>
                 <a href="#">Available Games</a>
                 <a href="#">Create Game</a>
             </nav>
-            <div class="btn-spacer">
-                <button class="btn" id="sign-up-btn">Sign Up</button>
-                <button class="btn" id="join-now-btn">Join Now</button>
-            </div>
-        </div>
-    </header>
+        </header>
+        
+    </section>
 
     <!-- ================= MAIN ================= -->
     <main>
@@ -91,12 +114,12 @@
                 <!-- Left Side -->
                 <div id="footer-left">
                     <p id="footer-title">FootMatch</p>
-                    <nav id="footer-nav">
-                        <a href="#">Home</a>
-                        <a href="#">How It Works</a>
-                        <a href="#">Available Games</a>
-                        <a href="#">Create Game</a>
-                    </nav>
+                    <ul>
+                        <li><a href="#header">Home</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#">Available Games</a></li>
+                        <li><a href="#">Create Game</a></li>
+                    </ul>
                 </div>
 
                 <!-- Right Side -->
