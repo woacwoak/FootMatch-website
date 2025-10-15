@@ -466,7 +466,7 @@ hr {
         gap: 30px;
     }
     .card-container .card {
-        width: 80%;
+        width: 90%;
         height: 350px;
     }
     .card img {
@@ -493,6 +493,10 @@ hr {
     }
     #ready-to-start-section{
         height: auto;
+    }
+
+    footer .container{
+        width: 80%;
     }
 }
 @media (max-width: 480px) {
