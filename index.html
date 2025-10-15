@@ -1,95 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Create and join local football matches by location, skill level, and time!">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="FootMatch" property="og:title">
-    <meta property="og:type" content="website"/>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Create and join local football matches by location, skill level, and time!" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="FootMatch" />
+    <meta property="og:type" content="website" />
     <title>FootMatch</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
 </head>
 
 <body>
+    <!-- ================= HEADER ================= -->
     <header>
-        <p id="title">FootMatch</p>
-        <nav>
-            <a href="">Home</a>
-            <a href="">How It Works</a>
-            <a href="">Available Games</a>
-            <a href="">Create Game</a>
-        </nav>
+        <div class="header-container">
+            <p id="title">FootMatch</p>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">How It Works</a>
+                <a href="#">Available Games</a>
+                <a href="#">Create Game</a>
+            </nav>
+            <div class="btn-spacer">
+                <button class="btn" id="sign-up-btn">Sign Up</button>
+                <button class="btn" id="join-now-btn">Join Now</button>
+            </div>
+        </div>
     </header>
 
+    <!-- ================= MAIN ================= -->
     <main>
-        <div id="hero-container">
+        <!-- HERO SECTION -->
+        <section id="hero-container">
             <h1 class="hero-title">Find and Join Football Games Near You</h1>
             <h2 class="hero-subtitle">Create or join matches, meet players, and enjoy the game.</h2>
             <button id="find-game-btn">Find a Game</button>
-        </div>
+        </section>
 
-        <h2 class="section-title">How It Works</h2>
-        <section class="card-container">
-            <div class="card">
-                <img src="./assets/person-icon.svg" alt="Person Icon">
-                <h2 id="card-text">Create a Profile</h2>
-                <p>Create your player profile to get started.</p>
-            </div>
-            <div class="card">
-                <img src="./assets/magnifying-glass-icon.svg" alt="Magnifying Glass Icon">
-                <h2 id="card-text">Find or Schedule a Match</h2>
-                <p>Browse or create football games in your area.</p>
-            </div>
-            <div class="card">
-                <img src="./assets/finish-icon.svg" alt="Finish Icon">
-                <h2 id="card-text">Join and Play</h2>
-                <p>Meet players, join the match, and have fun!</p>
+        <!-- HOW IT WORKS SECTION -->
+        <section>
+            <h2 class="section-title">How It Works</h2>
+            <div class="container">
+                <div class="card-container">
+                    <div class="card">
+                        <img src="./assets/person-icon.svg" alt="Person Icon" />
+                        <h2 id="card-text">Create a Profile</h2>
+                        <p>Create your player profile to get started.</p>
+                    </div>
+                    <div class="card">
+                        <img src="./assets/magnifying-glass-icon.svg" alt="Magnifying Glass Icon" />
+                        <h2 id="card-text">Find or Schedule a Match</h2>
+                        <p>Browse or create football games in your area.</p>
+                    </div>
+                    <div class="card">
+                        <img src="./assets/finish-icon.svg" alt="Finish Icon" />
+                        <h2 id="card-text">Join and Play</h2>
+                        <p>Meet players, join the match, and have fun!</p>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- MAP SECTION -->
         <section id="map-section">
             <h2 class="section-title">Available Pitches Nearby</h2>
-            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1tEp7kM2WRyzPsvhBfdfp-qrzHcxFWrE&ehbc=2E312F" width="640" height="480"></iframe>
+            <iframe
+                src="https://www.google.com/maps/d/u/0/embed?mid=1tEp7kM2WRyzPsvhBfdfp-qrzHcxFWrE&ehbc=2E312F"
+                width="640"
+                height="480">
+            </iframe>
         </section>
 
+        <!-- READY TO START SECTION -->
         <section id="ready-to-start-section">
             <h2 class="section-title" id="ready-title">Ready to get started?</h2>
-            <h3 class="section-subtitle">Join hundreds of athletes connecting through FootMatch now! </h3>
-            <button class="btn" id="create-account-btn">Create Account</button>
-            <button class="btn" id="explore-lobbies-btn">Explore Lobbies</button>
+            <h3 class="section-subtitle">Join hundreds of athletes connecting through FootMatch now!</h3>
+            <div class="btn-spacer">
+                <button class="btn" id="create-account-btn">Create Account</button>
+                <button class="btn" id="explore-lobbies-btn">Explore Lobbies</button>
+            </div>
         </section>
-        
-        
-
     </main>
+
+    <!-- ================= FOOTER ================= -->
     <footer>
         <div class="container">
             <div id="footer-content">
+                <!-- Left Side -->
                 <div id="footer-left">
                     <p id="footer-title">FootMatch</p>
                     <nav id="footer-nav">
-                        <a href="">Home</a>
-                        <a href="">How It Works</a>
-                        <a href="">Available Games</a>
-                        <a href="">Create Game</a>
+                        <a href="#">Home</a>
+                        <a href="#">How It Works</a>
+                        <a href="#">Available Games</a>
+                        <a href="#">Create Game</a>
                     </nav>
                 </div>
+
+                <!-- Right Side -->
                 <div id="footer-right">
                     <p id="follow-us">Follow Us</p>
-                    <img src="./assets/facebook.svg">
-                    <img src="./assets/twitter.svg">
-                    <img src="./assets/linkedin.svg">
-                    <img src="./assets/youtube.svg">
-                    <img src="./assets/instagram.svg">
+                    <img src="./assets/facebook.svg" alt="Facebook" />
+                    <img src="./assets/twitter.svg" alt="Twitter" />
+                    <img src="./assets/linkedin.svg" alt="LinkedIn" />
+                    <img src="./assets/youtube.svg" alt="YouTube" />
+                    <img src="./assets/instagram.svg" alt="Instagram" />
                 </div>
             </div>
-            <hr>
-                <p id="rights">&copy; 2024 FootMatch. All rights reserved.</p>
+
+            <hr />
+            <p id="rights">&copy; 2024 FootMatch. All rights reserved.</p>
         </div>
     </footer>
 </body>
-
 </html>

@@ -1,149 +1,31 @@
-header {
-    display: flex;
-    text-align: left;
-    align-items: center;
-    margin-bottom: 0px;
-    border-bottom: 1px solid black;
-    width: 1440px;
-    height: 78px;
-}
-nav {
-    margin-left: 170px;
-    display: flex;
-    align-items: center;
-    gap: 60px;
-}
+/* ================= GLOBAL ================= */
 body {
     font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
-    color: #1e293b;
+    color: black;
     background-color: white;
 }
 
-main {
-    text-align: center;
-}
-footer {
-    background-color: #BBF7D0;
-    color: #16A34A;
-    padding-bottom: 20px;
-    padding-top: 40px;
-}
-
-#title {
+p {
     font-family: "Poppins", sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    color: #16A34A;
-    margin-left: 60px;
-    align-items: center;
-    margin-bottom: 0px;
-}
-
-#hero-container {
-    margin: 0 auto;
-    padding-bottom: 110px;
-    padding-top: 90px;
-    width: "width=device-width, initial-scale=1.0";
-    background-color: green;
-}
-
-#find-game-btn {
-    font-family: "Poppins", sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: #16A34A;
-    background-color: white;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    padding: 10px 25px;
-
-}
-
-#card-text {
-    font-size: 24px;
-    margin-top: 10px;
-    color:#16A34A;
-    margin-bottom: 0px;
-    padding:0px;
-}
-#map-section {
-    text-align: center;
-    background-color: #BBF7D0;
-    padding-top: 10px;
-    height: 700px;
-}
-
-#ready-to-start-section{
-    height: 250px;
-}
-#ready-title {
-    margin-top: 50px;
-    margin-bottom: 30px;
-}
-
-#create-account-btn {
-    color: white;
-    background-color: #3B82F6;
-}
-#create-account-btn:hover {
-    background-color: #2d64bd;
-}
-
-#explore-lobbies-btn {
-    color: #16A34A;
-    background-color: white;
-    border-color: #16A34A;
-}
-#explore-lobbies-btn:hover {
-    color: white;
-    background-color: #16A34A;
-}
-#footer-title {
-    font-family: "Poppins", sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    color: #16A34A;
-    text-align: left;
-    margin-left: 0px;
-    margin-bottom: 0px;
-}
-#footer-nav {
-    padding-bottom: 20px;
-    margin-left: 0px;
-    align-items: flex-start;
-    gap: 10px;
-    display:flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-#footer-nav a {
-    font-size: 16px;
-}
-#footer-content {
-    margin-left: 0px;
-    font-size: 16px;
     font-weight: 400;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    font-family: "Poppins", sans-serif;
     color: #1e293b;
-    display: flex;
-    flex: 1;
-    gap: 200px;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
 }
-
-#follow-us {
-    margin-left: 0px;
-    color: #16A34A;
-    font-weight: bold;
-
-}
-#rights {
-    padding-top: 20px;
-    text-align: center;
-}
-
+a:hover { color: #16a34a; }
+a:visited { color: #1e293b; }
+a:active { color: purple; }
 
 .btn {
     padding: 10px 25px;
@@ -155,108 +37,258 @@ footer {
     transition: all 0.3s;
 }
 
-.container {
-    max-width: 1200px;
+/* ================= HEADER ================= */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    height: 78px;
+}
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 20px;
+    gap: 150px;
 }
 
-.card-container {
-    padding-top: 20px;
-    margin-bottom:100px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+#title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #16a34a;
 }
-.card {
-    background-color:white;
-    border-radius: 10px;
-    padding: 20px;
-    width: 380px;
-    height: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 2px solid transparent;
+
+nav {
+    display: flex;
     align-items: center;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
+    gap: 60px;
 }
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
-    border-color: #16a34a;
-    
+nav a {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+#sing-up-btn {
+    color: #3b82f6;
+    background-color: transparent;
+    border: 2px solid #3b82f6;
+}
+#sing-up-btn:hover {
+    color: white;
+    background-color: #3b82f6;
+}
+#join-now-btn {
+    color: white;
+    background-color: #16a34a;
+}
+#join-now-btn:hover {
+    background-color: #15803d;
+}
+
+/* ================= HERO SECTION ================= */
+#hero-container {
+    background-color: #16A34A;
+    padding: 90px 0 110px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .hero-title {
     color: white;
     font-size: 42px;
     font-weight: bold;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 .hero-subtitle {
-  color: white;
-  font-size: 18px;
-  margin-bottom: 30px;
-  opacity: 0.9;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 30px;
+    opacity: 0.9;
 }
 
+#find-game-btn {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #16a34a;
+    background-color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 10px 25px;
+}
+#find-game-btn:hover {
+    background-color: #f1f5f9;
+}
+
+/* ================= HOW IT WORKS ================= */
 .section-title {
     color: #16a34a;
     font-size: 36px;
-    margin-bottom: 50px;
-    margin-top: 50px;
+    margin: 50px 0;
     font-weight: bold;
+    text-align: center;
 }
 
-.section-subtitle {
-    color: #16a34a;
-    font-size: 24px;
-    margin-bottom: 30px;
-    margin-top: 0px;
-    font-weight: 40;
-}
-
-
-
-p {
-    font-family: "Poppins", sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    color: black;
-    margin-left: 0px;
-    margin-top: 0px;
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
     padding-top: 0px;
+    margin-bottom: 100px;
 }
 
-a {
-    font-family: "Poppins", sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    color: black;
-    text-decoration: none;
+.card {
+    background-color: white;
+    border-radius: 10px;
+    width: 380px;
+    height: 300px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-a:visited {
-    color: black;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    border-color: #16a34a;
 }
 
-a:hover {
+#card-text {
+    font-size: 24px;
+    margin: 10px 0 0;
     color: #16a34a;
 }
 
-a:active {
-    color: purple;
+/* ================= MAP SECTION ================= */
+#map-section {
+    background-color: #bbf7d0;
+    text-align: center;
+    padding-top: 10px;
+    height: 700px;
 }
-
-
 
 iframe {
     border: 0;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 40px;
+}
+
+/* ================= READY SECTION ================= */
+#ready-to-start-section {
+    text-align: center;
+    height: 250px;
+}
+
+#ready-title {
+    margin: 50px 0 30px;
+}
+
+.section-subtitle {
+    color: #16a34a;
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.btn-spacer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#create-account-btn {
+    color: white;
+    background-color: #3b82f6;
+}
+#create-account-btn:hover {
+    background-color: #2d64bd;
+}
+
+#explore-lobbies-btn {
+    color: #16a34a;
+    background-color: white;
+    border-color: #16a34a;
+}
+#explore-lobbies-btn:hover {
+    color: white;
+    background-color: #16a34a;
+}
+
+/* ================= FOOTER ================= */
+footer {
+    background-color: #bbf7d0;
+    color: #16a34a;
+    padding: 40px 0 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#footer-content {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 400;
+    color: #1e293b;
+}
+
+#footer-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #16a34a;
+    text-align: left;
+    margin-bottom: 0;
+}
+
+#footer-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-left: 0px;
+    gap: 10px;
+    padding-bottom: 30px;
+}
+
+#footer-nav a {
+    font-size: 16px;
+}
+
+#follow-us {
+    font-weight: bold;
+    font-size: 20px;
+    color: #16a34a;
+    margin-bottom: 10px;
+}
+
+#footer-right img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid black;
+    margin: 0 0 10px 0;
+}
+
+#rights {
+    padding-top: 20px;
+    text-align: center;
+    color: #1e293b;
+    font-size: 14px;
 }
