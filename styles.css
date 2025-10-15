@@ -11,7 +11,7 @@ nav {
     margin-left: 170px;
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 60px;
 }
 body {
     font-family: "Poppins", sans-serif;
@@ -27,7 +27,6 @@ main {
 footer {
     background-color: #BBF7D0;
     color: #16A34A;
-    text-align: center;
     padding-bottom: 20px;
     padding-top: 40px;
 }
@@ -46,6 +45,8 @@ footer {
     margin: 0 auto;
     padding-bottom: 110px;
     padding-top: 90px;
+    width: "width=device-width, initial-scale=1.0";
+    background-color: green;
 }
 
 #find-game-btn {
@@ -71,11 +72,98 @@ footer {
 #map-section {
     text-align: center;
     background-color: #BBF7D0;
+    padding-top: 10px;
+    height: 700px;
+}
+
+#ready-to-start-section{
+    height: 250px;
+}
+#ready-title {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+#create-account-btn {
+    color: white;
+    background-color: #3B82F6;
+}
+#create-account-btn:hover {
+    background-color: #2d64bd;
+}
+
+#explore-lobbies-btn {
+    color: #16A34A;
+    background-color: white;
+    border-color: #16A34A;
+}
+#explore-lobbies-btn:hover {
+    color: white;
+    background-color: #16A34A;
+}
+#footer-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #16A34A;
+    text-align: left;
+    margin-left: 0px;
+    margin-bottom: 0px;
+}
+#footer-nav {
+    padding-bottom: 20px;
+    margin-left: 0px;
+    align-items: flex-start;
+    gap: 10px;
+    display:flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+#footer-nav a {
+    font-size: 16px;
+}
+#footer-content {
+    margin-left: 0px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #1e293b;
+    display: flex;
+    flex: 1;
+    gap: 200px;
+}
+
+#follow-us {
+    margin-left: 0px;
+    color: #16A34A;
+    font-weight: bold;
+
+}
+#rights {
+    padding-top: 20px;
+    text-align: center;
+}
+
+
+.btn {
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .card-container {
     padding-top: 20px;
-    margin:0px;
+    margin-bottom:100px;
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -86,7 +174,6 @@ footer {
     padding: 20px;
     width: 380px;
     height: 300px;
-    margin-bottom: 100px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border: 2px solid transparent;
     align-items: center;
@@ -120,12 +207,19 @@ footer {
 
 .section-title {
     color: #16a34a;
-    font-size: 32px;
+    font-size: 36px;
     margin-bottom: 50px;
     margin-top: 50px;
     font-weight: bold;
 }
 
+.section-subtitle {
+    color: #16a34a;
+    font-size: 24px;
+    margin-bottom: 30px;
+    margin-top: 0px;
+    font-weight: 40;
+}
 
 
 
@@ -145,7 +239,6 @@ a {
     font-weight: 400;
     color: black;
     text-decoration: none;
-    margin-left: 30px;
 }
 a:visited {
     color: black;
@@ -159,10 +252,7 @@ a:active {
     color: purple;
 }
 
-div {
-    width: "width=device-width, initial-scale=1.0";
-    background-color: green;
-}
+
 
 iframe {
     border: 0;
