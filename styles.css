@@ -1,4 +1,6 @@
-/* ================= GLOBAL ================= */
+html {
+    scroll-behavior: smooth;
+}
 body {
     font-family: "Poppins", sans-serif;
     margin: 0;
@@ -72,12 +74,12 @@ nav a {
 }
 
 
-#sing-up-btn {
+#sign-up-btn {
     color: #3b82f6;
     background-color: transparent;
     border: 2px solid #3b82f6;
 }
-#sing-up-btn:hover {
+#sign-up-btn:hover {
     color: white;
     background-color: #3b82f6;
 }
@@ -156,17 +158,20 @@ nav a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
     border-color: #16a34a;
 }
-
 #card-text {
     font-size: 24px;
     margin: 10px 0 0;
     color: #16a34a;
+}
+.card:hover #card-text {
+    transform: translateY(-2px);
 }
 
 /* ================= MAP SECTION ================= */
@@ -177,11 +182,16 @@ nav a {
     height: 700px;
 }
 
-iframe {
+#map-section iframe {
     border: 0;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#map-section iframe:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* ================= READY SECTION ================= */
