@@ -592,15 +592,15 @@ hr {
         margin-bottom: 50px;
     }
     .btn{
-        width: 120px;
+        width: 125px;
         height: 40px;;
     }
     .btn-spacer{
-        gap:10px;
+        gap:7px;
     }
     #create-account-btn, #explore-lobbies-btn{
-        font-size: 13px;
-        padding: 6px 6px;
+        font-size: 12px;
+        padding: 5px 5px;
     }
     #ready-to-start-section #ready-title {
         margin: 20px 10px 10px 10px;
