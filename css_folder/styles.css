@@ -431,6 +431,7 @@ hr {
 
     #hamburger-header-nav a {
         font-size: 20px;
+        color: black;
         font-weight: 100;
         padding: 10px 0;
         flex-direction: column;
@@ -499,7 +500,7 @@ hr {
         width: 80%;
     }
 }
-@media (max-width: 480px) {
+@media (max-width: 425px) {
     #sign-up-btn {
         display:none;
     }
@@ -542,6 +543,26 @@ hr {
     #map-section iframe {
         height: 350px;
     }
+
+    .btn{
+        width: 150px;
+        height: 40px;;
+    }
+    #create-account-btn, #explore-lobbies-btn{
+        font-size: 14px;
+        padding: 5px 5px;
+    }
+
+    li a{
+        font-size: 16px;
+    }
+    #footer-content{
+        display: flex;
+        flex-direction: column;
+    }
+    #footer-right{
+        margin-bottom: 20px;
+    }
 }
 
 @media (max-width: 375px){
@@ -553,10 +574,40 @@ hr {
         font-size: 14px;
         padding: 5px 5px;
     }
-    h2 #ready-title{
-        margin: 10px 0 5px;
+    #map-section .section-title{
+        padding: 0 30px;
+    }
+    #how-it-works .section-title{
+        font-size: 28px;
+    }
+    #ready-to-start-section #ready-title{
+        font-size: 28px;
     }
     h3 {
         padding: 0px 10px;
     }
+}
+@media(max-width:320px){
+    .card-container{
+        margin-bottom: 50px;
+    }
+    .btn{
+        width: 120px;
+        height: 40px;;
+    }
+    .btn-spacer{
+        gap:10px;
+    }
+    #create-account-btn, #explore-lobbies-btn{
+        font-size: 13px;
+        padding: 6px 6px;
+    }
+    #ready-to-start-section #ready-title {
+        margin: 20px 10px 10px 10px;
+    }
+    #ready-to-start-section .section-subtitle{
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
 }
