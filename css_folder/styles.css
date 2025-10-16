@@ -24,6 +24,8 @@ a {
 }
 a:hover { color: #16a34a; } 
 
+
+
 .btn {
     border: 2px solid transparent;
     border-radius: 25px;
@@ -83,17 +85,8 @@ nav#hamburger-header-nav {
 
 .hamburger {
     display: none;
-    cursor: pointer;
-    width: 34px;
 }
 
-.hamburger .bar {
-    height: 3px;
-    width: 25px;
-    background-color: #16a34a;
-    margin: 3px 0;
-    border-radius: 2px;
-}
 
 #sign-up-btn {
     color: #3b82f6;
@@ -350,10 +343,6 @@ hr {
   display: none;
 }
 
-@media (max-width: 1024px){
-    
-}
-
 @media (max-width: 768px) {
     .header-container {
         justify-content: space-between;
@@ -404,8 +393,8 @@ hr {
     .hamburger {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
         cursor: pointer;
+        width: 34px;
     }
     .hamburger .bar {
         width: 28px;

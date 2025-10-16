@@ -3,10 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Create Game — FootMatch</title>
-  <link href="/css_folder/reset.css" rel="stylesheet" />
-  <link rel="stylesheet" href="/css_folder/create_game.css" />
+  <title>Create Game — FootMat  ch</title>
+
+  <!-- Reset and fonts -->
+  <link href="css_folder/reset.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+  <!-- Your main CSS -->
+  <link rel="stylesheet" href="css_folder/create_game.css" />
+  <script src="js/navigation.js" defer></script>
 </head>
 
 <body>
@@ -14,17 +18,36 @@
   <header>
     <div class="container header-container">
       <h1 id="title">FootMatch</h1>
+
       <nav id="header-nav">
         <a href="index.html">Home</a>
         <a href="#">How It Works</a>
         <a href="#">Available Games</a>
         <a href="#">Create Game</a>
       </nav>
+
       <div id="header-right">
-        <button class="btn" id="sign-up-btn">Sign Up</button>
-        <button class="btn" id="join-now-btn">Join Now</button>
+        <div class="btns">
+            <button class="btn" id="sign-up-btn">Sign Up</button>
+            <button class="btn" id="join-now-btn">Join Now</button>
+        </div>
+
+        <!-- Hamburger -->
+        <div class="hamburger" id="menu-toggle">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
       </div>
     </div>
+
+    <!-- Hamburger Nav -->
+    <nav id="hamburger-header-nav">
+      <a href="index.html">Home</a>
+      <a href="#">How It Works</a>
+      <a href="#">Available Games</a>
+      <a href="create-game.html">Create Game</a>
+    </nav>
   </header>
 
   <!-- MAIN FORM -->
@@ -95,5 +118,7 @@
       </div>
     </section>
   </main>
+
+  
 </body>
 </html>
