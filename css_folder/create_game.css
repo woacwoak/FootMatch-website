@@ -1,0 +1,170 @@
+/* ===== General ===== */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #bbf7d0;
+  margin: 0;
+  padding: 0;
+  color: #1e293b;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== Header ===== */
+header {
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+#title {
+  color: #16a34a;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#header-nav {
+  display: flex;
+  gap: 50px;
+}
+
+#header-nav a {
+  text-decoration: none;
+  color: #1e293b;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+#header-nav a:hover {
+  color: #16a34a;
+}
+
+#header-right {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  border: 2px solid transparent;
+  border-radius: 25px;
+  padding: 8px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s; 
+  font-family: "Poppins", sans-serif;
+}
+
+#sign-up-btn {
+  color: #3b82f6;
+  background-color: transparent;
+  border: 2px solid #3b82f6;
+}
+
+#sign-up-btn:hover {
+  color: white;
+  background-color: #3b82f6;
+}
+
+#join-now-btn {
+  background-color: #16a34a;
+  color: white;
+}
+
+#join-now-btn:hover {
+  background-color: #15803d;
+}
+
+/* ===== Form Section ===== */
+#create-game-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.form-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 80%;
+}
+
+h2 {
+  text-align: center;
+  color: #16a34a;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input, select, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}
+
+textarea {
+  resize: none;
+  min-height: 80px;
+}
+
+.description {
+  grid-column: 1 / 3;
+}
+
+.create-btn {
+  background-color: #16a34a;
+  color: white;
+  margin-top: 30px;
+  padding: 12px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.create-btn:hover {
+  background-color: #15803d;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .description {
+    grid-column: 1;
+  }
+}

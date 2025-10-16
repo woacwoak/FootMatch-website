@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Game — FootMatch</title>
+  <link href="/css_folder/reset.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/css_folder/create_game.css" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container header-container">
+      <h1 id="title">FootMatch</h1>
+      <nav id="header-nav">
+        <a href="index.html">Home</a>
+        <a href="#">How It Works</a>
+        <a href="#">Available Games</a>
+        <a href="#">Create Game</a>
+      </nav>
+      <div id="header-right">
+        <button class="btn" id="sign-up-btn">Sign Up</button>
+        <button class="btn" id="join-now-btn">Join Now</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN FORM -->
+  <main>
+    <section id="create-game-section">
+      <div class="form-container">
+        <h2>Create a New Game</h2>
+        <form>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="game-name">Game name</label>
+              <input type="text" id="game-name" placeholder="e.g., Sunday Morning Match" required />
+            </div>
+
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" id="date" required />
+            </div>
+
+            <div class="form-group">
+              <label for="time">Time</label>
+              <input type="time" id="time" required />
+            </div>
+
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input type="text" id="location" placeholder="e.g., Stadium 3" required />
+            </div>
+
+            <div class="form-group">
+              <label for="sport">Sports Type</label>
+              <select id="sport">
+                <option>Football</option>
+                <option>Basketball</option>
+                <option>Volleyball</option>
+                <option>Tennis</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="capacity">Player Capacity</label>
+              <input type="number" id="capacity" placeholder="e.g., 10" required />
+            </div>
+
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input type="text" id="price" placeholder="0 for free" />
+            </div>
+
+            <div class="form-group">
+              <label for="age">Age</label>
+              <select id="age">
+                <option>Any</option>
+                <option>18+</option>
+                <option>25+</option>
+                <option>30+</option>
+              </select>
+            </div>
+
+            <div class="form-group description">
+              <label for="description">Description</label>
+              <textarea id="description" placeholder="Add any details about the match..."></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn create-btn">Create Game</button>
+        </form>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

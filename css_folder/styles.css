@@ -25,12 +25,11 @@ a {
 a:hover { color: #16a34a; } 
 
 .btn {
-    padding: 10px 25px;
+    border: 2px solid transparent;
     border-radius: 25px;
-    font-size: 16px;
+    padding: 8px 18px;
     font-weight: 600;
     cursor: pointer;
-    border: 2px solid transparent;
     transition: all 0.3s;
 }
 
@@ -52,11 +51,6 @@ header {
     flex-wrap: wrap;
 }
 
-header .btn {
-    padding: 10px 25px;
-    font-size: 16px;
-    white-space: nowrap
-}
 
 
 .container {
@@ -79,7 +73,7 @@ nav#header-nav {
 }
 nav#header-nav a {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
 }
 nav#hamburger-header-nav {
     display: none;
@@ -248,7 +242,7 @@ nav#hamburger-header-nav {
 .btn-spacer {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 #create-account-btn {
