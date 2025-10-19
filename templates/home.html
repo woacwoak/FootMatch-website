@@ -8,9 +8,9 @@
     <meta property="og:type" content="website" />
     <title>FootMatch</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
-    <link rel="stylesheet" href="/static/css_folder/reset.css">
-    <link rel="stylesheet" href="/static/css_folder/styles.css">
-    <script src="/static/js/navigation.js" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/navigation.js') }}" defer></script>
 </head>
 
 <body>
