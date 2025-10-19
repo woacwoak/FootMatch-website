@@ -1,6 +1,6 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 @app.route('/')
 @app.route('/home')
@@ -25,4 +25,4 @@ def create_game():
     return render_template("create-game.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run("""debug=True""")
