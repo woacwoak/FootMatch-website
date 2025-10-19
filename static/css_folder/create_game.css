@@ -1,0 +1,264 @@
+/* ===== General ===== */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #bbf7d0;
+  margin: 0;
+  padding: 0;
+  color: #1e293b;
+}
+
+/* ===== Header ===== */
+header {
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  z-index: 1000;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+#title {
+  color: #16a34a;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#header-nav {
+  display: flex;
+  gap: 50px;
+}
+
+#header-nav a {
+  color: #1e293b;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+#header-nav a:hover {
+  color: #16a34a;
+}
+
+.btns{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#header-right {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+/* ===== Hamburger Menu ===== */
+    .hamburger{
+        display: none;
+    }
+    
+
+#hamburger-header-nav {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-top: 1px solid #ddd;
+  z-index: 999;
+}
+
+#hamburger-header-nav a {
+  color: #1e293b;
+  text-decoration: none;
+  padding: 12px 0;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#hamburger-header-nav a:hover {
+  background-color: #f9fafb;
+  color: #16a34a;
+}
+
+#hamburger-header-nav.nav-open {
+  display: flex;
+}
+
+/* ===== Buttons ===== */
+button, .btn {
+    border: 2px solid transparent;
+    border-radius: 25px;
+    padding: 8px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover, .btn:hover {
+  background-color: #15803d;
+}
+
+#sign-up-btn {
+    color: #3b82f6;
+    background-color: transparent;
+    border: 2px solid #3b82f6;
+}
+#sign-up-btn:hover {
+    color: white;
+    background-color: #3b82f6;
+}
+#join-now-btn {
+    color: white;
+    background-color: #16a34a;
+}
+#join-now-btn:hover {
+    background-color: #15803d;
+}
+
+/* ===== Form Inputs ===== */
+h2{
+    color: #16a34a;
+    font-size: 24px;
+    padding-bottom: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+input, select, textarea {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #1e293b;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+  background-color: white;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+}
+
+/* ===== Form Section ===== */
+#create-game-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.form-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 80%;
+  max-width: 1200px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* Description textarea spans full width */
+.description {
+  grid-column: span 2;
+}
+
+/* Submit button full width on desktop */
+.create-btn {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  background-color: #16a34a;
+  color: white;
+
+  border: 2px solid transparent;
+  border-radius: 8px;
+
+
+}
+@media (max-width: 1024px) {
+    .header-container{
+        margin: 0;
+    }
+
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+
+
+    #header-nav {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        cursor: pointer;
+        
+    }
+    .hamburger .bar {
+        width: 28px;
+        height: 3px;
+        background-color: #16a34a;
+        margin: 4px 0;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .description {
+        grid-column: 1;
+    }
+
+    .form-container {
+        width: 95%;
+    }
+
+    .create-btn {
+        width: 100%;
+    }
+}
+@media (max-width: 425px) {
+    #sign-up-btn{
+        display: none;
+    }
+    #join-now-btn{
+        display: none;
+    }
+}
