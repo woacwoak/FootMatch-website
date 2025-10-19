@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Available Games | FootMatch</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/available-games.css') }}">
+    <script src="{{ url_for('static', filename='js/navigation.js') }}" defer></script>
+</head>
+
+<body>
+    <!--HEADER-->
+    <section id="header">
+        <header>
+            <div class="header-container">
+                <p id="title">FootMatch</p>
+
+                <nav id="header-nav">
+                    <a href="{{ url_for('home') }}#header">Home</a>
+                    <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
+                    <a href="{{ url_for('available_games') }}">Available Games</a>
+                    <a href="{{ url_for('create_game') }}">Create Game</a>
+                </nav>
+
+                <div id="header-right">
+                    <div class="btn-spacer">
+                        <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">
+                            Sign Up
+                        </a>
+                        <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">
+                            Login
+                        </a>
+                    </div>
+
+                    <div class="hamburger">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <nav id="hamburger-header-nav">
+                <a href="#header">Home</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="{{ url_for('available_games') }}">Available Games</a>
+                <a href="{{ url_for('create_game') }}">Create Game</a>
+            </nav>
+        </header>
+    </section>
+
+    <!--MAIN-->
+    <main>
+        <section id="available-games">
+            <h1 class="section-title">Available Games</h1>
+
+            <div class="games-container">
+                <!-- Card 1 -->
+                <div class="game-card">
+                    <div class="game-card-top">
+                        <div class="img-background">
+                            <img src="{{ url_for('static', filename='assets/football-icon.svg') }}" alt="Football Icon">
+                        </div>
+                        <div class="game-info">
+                            <h2>Match for Beginners</h2>
+                            <p>Sun, Oct 19 • 20:00 • Stadium 2 (Floodlights)</p>
+                            <p class="info"><span>7 / 10 joined</span> | Type: Football</p>
+                        </div>
+                    </div>
+                    <div class="game-card-bottom">
+                        
+                        <div class="buttons">
+                            <button class="btn join-btn">Join Now</button>
+                            <button class="btn details-btn">Details</button>
+                        </div>
+                    </div>
+                    <span class="price-tag free">FREE</span>
+                </div>
+
+
+                <!-- Card 2 -->
+                 <div class="game-card">
+                    <div class="game-card-top">
+                        <div class="img-background">
+                            <img src="{{ url_for('static', filename='assets/football-icon.svg') }}" alt="Football Icon">
+                        </div>
+                        <div class="game-info">
+                            <h2>Andrew's Match On Monday</h2>
+                            <p>Mon, Oct 20 • 09:00 • Stadium 1</p>
+                            <p class="info"><span>9 / 10 joined</span> | Type: Football</p>
+                        </div>
+                    </div>
+                    <div class="game-card-bottom">
+                        
+                        <div class="buttons">
+                            <button class="btn join-btn">Join Now</button>
+                            <button class="btn details-btn">Details</button>
+                        </div>
+                    </div>
+                    <span class="price-tag paid">3$</span>
+                </div>
+
+                <!-- Repeat more cards as needed -->
+            </div>
+
+            <div class="view-more">
+                <button class="btn view-more-btn">View More</button>
+            </div>
+        </section>
+    </main>
+
+    <!--FOOTER-->
+    <footer>
+        <div class="container">
+            <div id="footer-content">
+                <!-- Left Side -->
+                <div id="footer-left">
+                    <p id="footer-title">FootMatch</p>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}#header">Home</a></li>
+                        <li><a href="{{ url_for('home') }}#how-it-works">How It Works</a></li>
+                        <li><a href="#header">Available Games</a></li>
+                        <li><a href="{{ url_for('create_game') }}">Create Game</a></li>
+                    </ul>
+                </div>
+
+                <!-- Right Side -->
+                <div id="footer-right">
+                    <p id="follow-us">Follow Us</p>
+                    <img src="/static/assets/facebook.svg" alt="Facebook" />
+                    <img src="/static/assets/twitter.svg" alt="Twitter" />
+                    <img src="/static/assets/linkedin.svg" alt="LinkedIn" />
+                    <img src="/static/assets/youtube.svg" alt="YouTube" />
+                    <img src="/static/assets/instagram.svg" alt="Instagram" />
+                </div>
+            </div>
+
+            <hr />
+            <p id="rights">&copy; 2024 FootMatch. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

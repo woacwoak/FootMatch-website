@@ -8,8 +8,8 @@
     <meta property="og:type" content="website" />
     <title>FootMatch</title>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/reset.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/style.css') }}">
+    <link rel="stylesheet" href="/static/css_folder/reset.css">
+    <link rel="stylesheet" href="/static/css_folder/styles.css">
     <script src="/static/js/navigation.js" defer></script>
 </head>
 
@@ -23,15 +23,19 @@
                 <nav id="header-nav">
                     <a href="#header">Home</a>
                     <a href="#how-it-works">How It Works</a>
-                    <a href="#">Available Games</a>
-                    <a href="create-game.html">Create Game</a>
+                    <a href="{{ url_for('available_games') }}">Available Games</a>
+                    <a href="{{ url_for('create_game') }}">Create Game</a>
                 </nav>
 
                 <div id="header-right">
                     
                     <div class="btn-spacer">
-                        <button class="btn" id="sign-up-btn">Sign Up</button>
-                        <button class="btn" id="join-now-btn">Join Now</button>
+                        <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">
+                            Sign Up
+                        </a>
+                        <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">
+                            Login
+                        </a>
                     </div>
 
                     <div class="hamburger">
@@ -45,8 +49,8 @@
             <nav id="hamburger-header-nav">
                 <a href="#header">Home</a>
                 <a href="#how-it-works">How It Works</a>
-                <a href="#">Available Games</a>
-                <a href="create-game.html">Create Game</a>
+                <a href="{{ url_for('available_games') }}">Available Games</a>
+                <a href="{{ url_for('create_game') }}">Create Game</a>
             </nav>
         </header>
         
@@ -116,8 +120,8 @@
                     <ul>
                         <li><a href="#header">Home</a></li>
                         <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#">Available Games</a></li>
-                        <li><a href="create-game.html">Create Game</a></li>
+                        <li><a href="{{ url_for('available_games') }}">Available Games</a></li>
+                        <li><a href="{{ url_for('create_game') }}">Create Game</a></li>
                     </ul>
                 </div>
 

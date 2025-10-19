@@ -20,16 +20,20 @@
       <h1 id="title">FootMatch</h1>
 
       <nav id="header-nav">
-        <a href="home.html">Home</a>
-        <a href="#">How It Works</a>
-        <a href="#">Available Games</a>
-        <a href="#">Create Game</a>
+        <a href="{{ url_for('home')}}#header">Home</a>
+        <a href="{{ url_for('home')}}#how-it-works">How It Works</a>
+        <a href="{{ url_for('available_games') }}">Available Games</a>
+        <a href="{{ url_for('create_game') }}">Create Game</a>
       </nav>
 
       <div id="header-right">
         <div class="btns">
-            <button class="btn" id="sign-up-btn">Sign Up</button>
-            <button class="btn" id="join-now-btn">Join Now</button>
+          <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">
+              Sign Up
+          </a>
+          <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">
+              Login
+          </a>
         </div>
 
         <!-- Hamburger -->
@@ -43,10 +47,10 @@
 
     <!-- Hamburger Nav -->
     <nav id="hamburger-header-nav">
-      <a href="index.html">Home</a>
-      <a href="#">How It Works</a>
-      <a href="#">Available Games</a>
-      <a href="create-game.html">Create Game</a>
+      <a href="{{ url_for('home')}}#header">Home</a>
+      <a href="{{ url_for('home')}}#how-it-works">How It Works</a>
+      <a href="{{ url_for('available_games') }}">Available Games</a>
+      <a href="{{ url_for('create_game') }}">Create Game</a>
     </nav>
   </header>
 

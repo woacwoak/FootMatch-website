@@ -9,7 +9,7 @@
     <script src="/static/js/log-in.js" defer></script>
 </head>
 <body>
-    <button class="top-left-btn" id="backButton">&lt;</button>
+    <a href="{{ url_for('home') }}" class="top-left-btn" id="backButton">&lt;</a>
     <div class="container">
         <h2>Log In</h2>
         <form>
@@ -40,7 +40,7 @@
         </form>
 
         <div class="login-link">
-            Don't have an account ? <a href="sign-up.html">Sign Up</a>
+            Don't have an account ? <a href="{{ url_for('sign_up')}}">Sign Up</a>
         </div>
     </div>
 </body>
