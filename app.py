@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 
@@ -20,7 +20,11 @@ def home():
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     error = None
+    success = None
+
     if request.method == "POST":
+        name = request.form.get("name")
+        surname = request.form.get("surname")
         email = request.form.get("email")
         password = request.form.get("password")
         password_confirm = request.form.get("password_confirm")
@@ -33,7 +37,14 @@ def sign_up():
             error = "Your password is too short. It should contain at least 6 characters."
         elif password != password_confirm:
             error = "Passwords doesn't match!"
-    return render_template("sign-up.html", error=error)
+        else:
+            success = f"Account created successfully! Welcome to FootMatch, {name} {surname}! "
+
+            # Here you can also add logic to actually save the user
+            # user = User(username=email, password=password)
+            # db.session.add(user)
+            # db.session.commit()"
+    return render_template("sign-up.html", error=error, success=success)
 
 @app.route('/login')
 def login():

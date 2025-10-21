@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
-    <link href="{{ url_for('static', 'css_folder/sign-up.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css_folder/sign-up.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css_folder/error-messages.css')}}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- <script src="{{ url_for('static', 'js/sign-up.js')}}" defer></script> -->
+    <!-- <script src="{{ url_for('static', filename='js/sign-up.js')}}" defer></script> -->
 </head>
 <body>
     <a href="{{ url_for('home') }}" class="top-left-btn" id="backButton">&lt;</a>
@@ -15,11 +16,24 @@
         {% if error %}
             <div class="error-message">{{ error }}</div>
         {% endif %}
+        {% if success %}
+            <div class="success-message">{{ success }}</div>
+        {% endif %}
         <form action="/sign-up" method="POST">
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="name" name="name" id="name" placeholder="James">
+            </div>
+            <!-- Surname -->
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="surname" name="surname" id="surname" placeholder="Smith">
+            </div>
             <!-- Email -->
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="valid" placeholder="balamia@gmail.com">
+                <input type="email" name="email" id="email" placeholder="balamia@gmail.com">
             </div>
 
             <!-- Password -->
@@ -27,7 +41,7 @@
                 <label for="password">Password</label>
                 <div class="input-wrapper">
                     <input type="password" name="password" id="password" placeholder="Enter your password">
-                    <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
+                    <!-- <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span> -->
                 </div>
             </div>
 
@@ -36,7 +50,7 @@
                 <label for="repeat-password">Repeat Password</label>
                 <div class="input-wrapper">
                     <input type="password" name="password_confirm" id="repeat-password" placeholder="Repeat your password">
-                    <span class="toggle-password" onclick="togglePassword('repeat-password', this)">👁️</span>
+                    <!-- <span class="toggle-password" onclick="togglePassword('repeat-password', this)">👁️</span> -->
                 </div>
             </div>
 
