@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
-    <link href="/static/css_folder/sing-up.css" rel="stylesheet">
+    <link href="{{ url_for('static', 'css_folder/sign-up.css')}}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="/static/js/sign-up.js" defer></script>
+    <!-- <script src="{{ url_for('static', 'js/sign-up.js')}}" defer></script> -->
 </head>
 <body>
     <a href="{{ url_for('home') }}" class="top-left-btn" id="backButton">&lt;</a>
