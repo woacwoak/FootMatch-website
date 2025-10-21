@@ -12,18 +12,21 @@
     <a href="{{ url_for('home') }}" class="top-left-btn" id="backButton">&lt;</a>
     <div class="container">
         <h2>Create an account</h2>
-        <form>
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+        <form action="/sign-up" method="POST">
             <!-- Email -->
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" class="valid" placeholder="balamia@gmail.com">
+                <input type="email" name="email" id="email" class="valid" placeholder="balamia@gmail.com">
             </div>
 
             <!-- Password -->
             <div class="form-group password-wrapper">
                 <label for="password">Password</label>
                 <div class="input-wrapper">
-                    <input type="password" id="password" placeholder="Enter your password">
+                    <input type="password" name="password" id="password" placeholder="Enter your password">
                     <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
                 </div>
             </div>
@@ -32,7 +35,7 @@
             <div class="form-group password-wrapper">
                 <label for="repeat-password">Repeat Password</label>
                 <div class="input-wrapper">
-                    <input type="password" id="repeat-password" placeholder="Repeat your password">
+                    <input type="password" name="password_confirm" id="repeat-password" placeholder="Repeat your password">
                     <span class="toggle-password" onclick="togglePassword('repeat-password', this)">👁️</span>
                 </div>
             </div>
