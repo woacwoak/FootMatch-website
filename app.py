@@ -20,6 +20,18 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+    
+class Game(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String(20), nullable=False)
+    time = db.Column(db.String(20), nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    sports_type = db.Column(db.String(50), nullable=False)
+    player_capacity = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(300), nullable=True)
+
 
 
 @app.route('/')
@@ -29,6 +41,8 @@ def home():
 
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
+    if "email" in session:
+        return redirect(url_for("dashboard"))
     error = None
     success = None
 
@@ -62,6 +76,8 @@ def sign_up():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    if "email" in session:
+        return redirect(url_for("dashboard"))
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
@@ -93,12 +109,13 @@ def logout():
 
 @app.route("/available-games")
 def available_games():
-    if "email" not in session:
-        return redirect(url_for("login"))
+    # if "email" not in session:
+    #     return redirect(url_for("login"))
     return render_template("available-games.html")
 
 @app.route("/create-game")
 def create_game():
+
     return render_template("create-game.html")
 
 if __name__ == "__main__":

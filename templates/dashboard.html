@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+
+    <!-- Reuse your existing styles -->
+    <link href="{{ url_for('static', filename='css_folder/log-in.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css_folder/dashboard.css')}}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    
 </head>
+
 <body>
-    <h1>Welcome, {{ name }} {{ surname }}!</h1>
-    <p>Your email: {{ email }}</p>
-    <a href="{{ url_for('logout') }}">Logout</a>
+    <!-- Back to Home button (same style as login) -->
+    <a href="{{ url_for('home') }}" class="top-left-btn" id="backButton">&lt;</a>
+
+    <div class="dashboard-container">
+        <h1>Welcome, {{ name }} {{ surname }}!</h1>
+        <p>Your email: {{ email }}</p>
+
+        <!-- Buttons -->
+        <a href="{{ url_for('available_games') }}" class="dashboard-btn btn-primary">Available Games</a>
+        <a href="{{ url_for('create_game') }}" class="dashboard-btn btn-secondary">Create a Game</a>
+        <a href="{{ url_for('logout') }}" class="dashboard-btn btn-primary">Logout</a>
+    </div>
 </body>
 </html>

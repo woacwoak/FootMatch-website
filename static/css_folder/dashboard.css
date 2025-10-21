@@ -1,0 +1,54 @@
+.dashboard-container {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.dashboard-container h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.dashboard-container p {
+    font-size: 15px;
+    color: #374151;
+    margin-bottom: 25px;
+}
+
+.dashboard-btn {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.btn-primary {
+    background-color: #16a34a;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #15803d;
+}
+
+.btn-secondary {
+    background-color: #d1fae5;
+    color: #10b981;
+}
+
+.btn-secondary:hover {
+    background-color: #a7f3d0;
+}
