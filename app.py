@@ -23,13 +23,14 @@ class User(db.Model):
     
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    game_name = db.Column(db.String(100), nullable=False)
     date = db.Column(db.String(20), nullable=False)
     time = db.Column(db.String(20), nullable=False)
     location = db.Column(db.String(100), nullable=False)
     sports_type = db.Column(db.String(50), nullable=False)
     player_capacity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
-    age = db.Column(db.Integer, nullable=False)
+    age = db.Column(db.String(15), nullable=False)
     description = db.Column(db.String(300), nullable=True)
 
 
@@ -107,16 +108,44 @@ def logout():
     session.clear()
     return redirect(url_for("home"))
 
+@app.route("/create-game", methods=["GET", "POST"])
+def create_game():
+    if request.method == "POST":
+        id = request.form.get("id")
+        game_name = request.form.get("game_name")
+        date = request.form.get("date")
+        time = request.form.get("time")
+        location = request.form.get("location")
+        sports_type = request.form.get("sports_type")
+        player_capacity = request.form.get("player_capacity")
+        price = request.form.get("price")
+        age = request.form.get("age")
+        description = request.form.get("description")
+
+        if not game_name or not date or not time or not location or not sports_type or not player_capacity or not price or not age:
+            return render_template("create-game.html", error="Please fill in all required fields.")
+
+        new_game = Game(id=id,
+                        game_name=game_name,
+                        date=date, time=time,
+                        location=location,
+                        sports_type=sports_type,
+                        player_capacity=player_capacity,
+                        price=price,
+                        age=age,
+                        description=description)
+        db.session.add(new_game)
+        db.session.commit()
+        return redirect(url_for("available_games"))
+    
+    return render_template("create-game.html")
+
 @app.route("/available-games")
 def available_games():
-    # if "email" not in session:
-    #     return redirect(url_for("login"))
-    return render_template("available-games.html")
+    games = Game.query.all()
+    return render_template("available-games.html", games=games)
 
-@app.route("/create-game")
-def create_game():
 
-    return render_template("create-game.html")
 
 if __name__ == "__main__":
     with app.app_context():

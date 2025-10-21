@@ -28,12 +28,13 @@
 
                 <div id="header-right">
                     <div class="btn-spacer">
-                        <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">
-                            Sign Up
-                        </a>
-                        <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">
-                            Login
-                        </a>
+                        {% if "email" in session %}
+                            <a href="{{ url_for('dashboard') }}" class="btn" id="sign-up-btn">Dashboard</a>
+                            <a href="{{ url_for('logout') }}" class="btn" id="join-now-btn">Logout</a>
+                        {% else %}
+                            <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">Sign Up</a>
+                            <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">Login</a>
+                        {% endif %}
                     </div>
 
                     <div class="hamburger">
@@ -59,57 +60,42 @@
             <h1 class="section-title">Available Games</h1>
 
             <div class="games-container">
-                <!-- Card 1 -->
-                <div class="game-card">
-                    <div class="game-card-top">
-                        <div class="img-background">
-                            <img src="{{ url_for('static', filename='assets/football-icon.svg') }}" alt="Football Icon">
+                {% if games %}
+                    {% for game in games %}
+                    <div class="game-card">
+                        <div class="game-card-top">
+                            <div class="img-background">
+                                <img src="{{ url_for('static', filename='assets/football-icon.svg') }}" alt="{{ game.sports_type }} Icon">
+                            </div>
+                            <div class="game-info">
+                                <h2>{{ game.game_name }}</h2>
+                                <p>{{ game.date }} • {{ game.time }} • {{ game.location }}</p>
+                                <p class="info">
+                                    <span>{{ game.player_capacity }} players max</span> | Type: {{ game.sports_type }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="game-info">
-                            <h2>Match for Beginners</h2>
-                            <p>Sun, Oct 19 • 20:00 • Stadium 2 (Floodlights)</p>
-                            <p class="info"><span>7 / 10 joined</span> | Type: Football</p>
+                        <div class="game-card-bottom">
+                            <div class="buttons">
+                                <button class="btn join-btn">Join Now</button>
+                                <button class="btn details-btn">Details</button>
+                            </div>
                         </div>
+                        <span class="price-tag {% if game.price == 0 %}free{% else %}paid{% endif %}">
+                            {% if game.price == 0 %}FREE{% else %}€{{ game.price }}{% endif %}
+                        </span>
                     </div>
-                    <div class="game-card-bottom">
-                        
-                        <div class="buttons">
-                            <button class="btn join-btn">Join Now</button>
-                            <button class="btn details-btn">Details</button>
-                        </div>
-                    </div>
-                    <span class="price-tag free">FREE</span>
-                </div>
-
-
-                <!-- Card 2 -->
-                 <div class="game-card">
-                    <div class="game-card-top">
-                        <div class="img-background">
-                            <img src="{{ url_for('static', filename='assets/football-icon.svg') }}" alt="Football Icon">
-                        </div>
-                        <div class="game-info">
-                            <h2>Andrew's Match On Monday</h2>
-                            <p>Mon, Oct 20 • 09:00 • Stadium 1</p>
-                            <p class="info"><span>9 / 10 joined</span> | Type: Football</p>
-                        </div>
-                    </div>
-                    <div class="game-card-bottom">
-                        
-                        <div class="buttons">
-                            <button class="btn join-btn">Join Now</button>
-                            <button class="btn details-btn">Details</button>
-                        </div>
-                    </div>
-                    <span class="price-tag paid">3$</span>
-                </div>
-
-                <!-- Repeat more cards as needed -->
+                    {% endfor %}
+                {% else %}
+                    <p class="no-games">No games available yet. <a href="{{ url_for('create_game') }}">Create one here</a>.</p>
+                {% endif %}
             </div>
 
+            {% if games %}
             <div class="view-more">
                 <button class="btn view-more-btn">View More</button>
             </div>
+            {% endif %}
         </section>
     </main>
 
