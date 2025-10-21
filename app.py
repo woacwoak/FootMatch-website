@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///footmatch.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
@@ -32,6 +32,9 @@ class Game(db.Model):
     price = db.Column(db.Float, nullable=False)
     age = db.Column(db.String(15), nullable=False)
     description = db.Column(db.String(300), nullable=True)
+
+    creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    creator = db.relationship('User', backref='games')
 
 
 
@@ -110,8 +113,15 @@ def logout():
 
 @app.route("/create-game", methods=["GET", "POST"])
 def create_game():
+    if "email" not in session:
+        return render_template("log-in.html", error="You must be logged in to create a game.")
+    
+    user = User.query.filter_by(email=session["email"]).first()
+    if not user:
+        session.clear()
+        return render_template("log-in.html", error="Session expired. Please log in again.")
+    
     if request.method == "POST":
-        id = request.form.get("id")
         game_name = request.form.get("game_name")
         date = request.form.get("date")
         time = request.form.get("time")
@@ -125,18 +135,29 @@ def create_game():
         if not game_name or not date or not time or not location or not sports_type or not player_capacity or not price or not age:
             return render_template("create-game.html", error="Please fill in all required fields.")
 
-        new_game = Game(id=id,
-                        game_name=game_name,
+        try:
+            player_capacity = int(player_capacity)
+            price = float(price)
+        except ValueError:
+            return render_template("create-game.html", error="Capacity must be a number and price must be numeric.")
+        
+        
+
+
+        new_game = Game(game_name=game_name,
                         date=date, time=time,
                         location=location,
                         sports_type=sports_type,
                         player_capacity=player_capacity,
                         price=price,
                         age=age,
-                        description=description)
+                        description=description,
+                        creator_id=user.id)
+        
         db.session.add(new_game)
         db.session.commit()
-        return redirect(url_for("available_games"))
+        games = Game.query.all()
+        return render_template("available-games.html", games=games, success="Game created successfully!")
     
     return render_template("create-game.html")
 

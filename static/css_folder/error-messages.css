@@ -24,3 +24,7 @@
     margin-bottom: 15px;
     font-weight: 500;
 }
+#available-games-success {
+    max-width: 600px;
+    margin: 0px auto 40px;
+}

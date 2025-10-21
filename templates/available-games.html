@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/available-games.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/error-messages.css') }}">
     <script src="{{ url_for('static', filename='js/navigation.js') }}" defer></script>
 </head>
 
@@ -58,6 +59,10 @@
     <main>
         <section id="available-games">
             <h1 class="section-title">Available Games</h1>
+
+            {% if success %}
+                <div class="success-message" id="available-games-success">{{ success }}</div>
+            {% endif %}
 
             <div class="games-container">
                 {% if games %}

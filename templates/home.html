@@ -30,12 +30,13 @@
                 <div id="header-right">
                     
                     <div class="btn-spacer">
-                        <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">
-                            Sign Up
-                        </a>
-                        <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">
-                            Login
-                        </a>
+                        {% if "email" in session %}
+                            <a href="{{ url_for('dashboard') }}" class="btn" id="sign-up-btn">Dashboard</a>
+                            <a href="{{ url_for('logout') }}" class="btn" id="join-now-btn">Logout</a>
+                        {% else %}
+                            <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">Sign Up</a>
+                            <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">Login</a>
+                        {% endif %}
                     </div>
 
                     <div class="hamburger">
@@ -62,7 +63,7 @@
         <section id="hero-container">
             <h1 class="hero-title">Find and Join Football Games Near You</h1>
             <h2 class="hero-subtitle">Create or join matches, meet players, and enjoy the game.</h2>
-            <button id="find-game-btn">Find a Game</button>
+            <a href="{{url_for('available_games')}}" id="find-game-btn">Find a Game</a>
         </section>
 
         <!-- HOW IT WORKS SECTION -->
