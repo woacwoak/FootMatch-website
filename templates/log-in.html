@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
     <link href="{{ url_for('static', filename='css_folder/log-in.css')}}" rel="stylesheet">
-    
+    <link href="{{ url_for('static', filename='css_folder/error-messages.css')}}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- <script src="/static/js/log-in.js" defer></script> -->
 </head>
@@ -13,18 +13,24 @@
     <a href="{{ url_for('home') }}" class="top-left-btn" id="backButton">&lt;</a>
     <div class="container">
         <h2>Log In</h2>
-        <form>
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+        {% if success %}
+            <div class="success-message">{{ success }}</div>
+        {% endif %}
+        <form id="auth-form" action="{{ url_for('login') }}" method="POST">
             <!-- Email -->
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" class="valid" placeholder="balamia@gmail.com">
+                <input type="email" name="email" id="email" class="valid" placeholder="balamia@gmail.com">
             </div>
 
             <!-- Password -->
             <div class="form-group password-wrapper">
                 <label for="password">Password</label>
                 <div class="input-wrapper">
-                    <input type="password" id="password" placeholder="Enter your password">
+                    <input type="password" name="password" id="password" placeholder="Enter your password">
                     <!-- <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span> -->
                 </div>
             </div>

@@ -1,16 +1,26 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SECRET_KEY'] = 'thisisasecretkey'
+app.secret_key = "your_secret_key"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-class User(db.Model, UserMixin):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    surname = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
 
 @app.route('/')
 @app.route('/home')
@@ -29,29 +39,62 @@ def sign_up():
         password = request.form.get("password")
         password_confirm = request.form.get("password_confirm")
 
-        if len(email) < 3:
+        user = User.query.filter_by(email=email).first()
+        if user:
+            error = "Email address already registered. Please log in."
+        elif len(email) < 3:
             error = "Your email is too short."
         elif len(password) < 6:
             error = "Your password is too short. It should contain at least 6 characters."
-        elif len(password_confirm) < 6:
-            error = "Your password is too short. It should contain at least 6 characters."
         elif password != password_confirm:
-            error = "Passwords doesn't match!"
+            error = "Passwords don't match!"
         else:
-            success = f"Account created successfully! Welcome to FootMatch, {name} {surname}! "
+            new_user = User(name=name, surname=surname, email=email)
+            new_user.set_password(password)
+            db.session.add(new_user)
+            db.session.commit()
+            session["email"] = email
+            return redirect(url_for("dashboard"))
 
-            # Here you can also add logic to actually save the user
-            # user = User(username=email, password=password)
-            # db.session.add(user)
-            # db.session.commit()"
     return render_template("sign-up.html", error=error, success=success)
 
-@app.route('/login')
+
+
+@app.route('/login', methods=['GET','POST'])
 def login():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+        user = User.query.filter_by(email=email).first()
+        if user and user.check_password(password):
+            session["email"] = email
+            return redirect(url_for("dashboard"))
+        else:
+            return render_template("log-in.html", error="Invalid email or password.")
     return render_template("log-in.html")
+
+@app.route("/dashboard")
+def dashboard():
+    if "email" not in session:
+        return redirect(url_for("login"))
+    
+    user = User.query.filter_by(email=session["email"]).first()
+
+    if not user:
+        session.clear()
+        return redirect(url_for("login"))
+
+    return render_template("dashboard.html", name=user.name, surname=user.surname, email=user.email)
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("home"))
 
 @app.route("/available-games")
 def available_games():
+    if "email" not in session:
+        return redirect(url_for("login"))
     return render_template("available-games.html")
 
 @app.route("/create-game")
@@ -59,4 +102,6 @@ def create_game():
     return render_template("create-game.html")
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
