@@ -1,13 +1,47 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, abort
 from werkzeug.security import generate_password_hash, check_password_hash
+from google_auth_oauthlib.flow import Flow
+from google.oauth2 import id_token
+import google.auth.transport.requests
+import cachecontrol
+import requests
+import os
+import pathlib
 from flask_sqlalchemy import SQLAlchemy
+from functools import wraps
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "your_secret_key"
+app.secret_key = os.getenv("SECRET_KEY")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///footmatch.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
+
+flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=["https://www.googleapis.com/auth/userinfo.profile", 
+            "https://www.googleapis.com/auth/userinfo.email", 
+            "openid"],
+    redirect_uri="http://127.0.0.1:5000/callback"
+)
+
+# ----------------------- Helpers -----------------------
+def login_is_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        if "google_id" not in session and "email" not in session:
+            return render_template("log-in.html", error="You must be logged in to access this page.")
+        return f(*args, **kwargs)
+    return wrapper
+
+
+# ----------------------- Models -----------------------
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -20,7 +54,8 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-    
+
+
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     game_name = db.Column(db.String(100), nullable=False)
@@ -31,41 +66,37 @@ class Game(db.Model):
     player_capacity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
     age = db.Column(db.String(15), nullable=False)
-    description = db.Column(db.String(300), nullable=True)
-
+    description = db.Column(db.String(300))
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     creator = db.relationship('User', backref='games')
 
 
-
+# ----------------------- Routes -----------------------
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template("home.html")
 
+
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if "email" in session:
         return redirect(url_for("dashboard"))
-    error = None
-    success = None
 
+    error = None
     if request.method == "POST":
         name = request.form.get("name")
         surname = request.form.get("surname")
         email = request.form.get("email")
         password = request.form.get("password")
-        password_confirm = request.form.get("password_confirm")
+        confirm = request.form.get("password_confirm")
 
-        user = User.query.filter_by(email=email).first()
-        if user:
-            error = "Email address already registered. Please log in."
-        elif len(email) < 3:
-            error = "Your email is too short."
+        if User.query.filter_by(email=email).first():
+            error = "Email already registered."
         elif len(password) < 6:
-            error = "Your password is too short. It should contain at least 6 characters."
-        elif password != password_confirm:
-            error = "Passwords don't match!"
+            error = "Password must be at least 6 characters long."
+        elif password != confirm:
+            error = "Passwords do not match."
         else:
             new_user = User(name=name, surname=surname, email=email)
             new_user.set_password(password)
@@ -74,14 +105,11 @@ def sign_up():
             session["email"] = email
             return redirect(url_for("dashboard"))
 
-    return render_template("sign-up.html", error=error, success=success)
+    return render_template("sign-up.html", error=error)
 
 
-
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    if "email" in session:
-        return redirect(url_for("dashboard"))
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
@@ -89,38 +117,64 @@ def login():
         if user and user.check_password(password):
             session["email"] = email
             return redirect(url_for("dashboard"))
-        else:
-            return render_template("log-in.html", error="Invalid email or password.")
+        return render_template("log-in.html", error="Invalid email or password.")
     return render_template("log-in.html")
 
-@app.route("/dashboard")
-def dashboard():
-    if "email" not in session:
-        return redirect(url_for("login"))
+
+@app.route("/google-login")
+def google_login():
+    authorization_url, state = flow.authorization_url()
+    session["state"] = state
+    return redirect(authorization_url)
+
+
+@app.route("/callback")
+def callback():
+    flow.fetch_token(authorization_response=request.url)
+    if not session["state"] == request.args["state"]:
+        abort(500)
+    credentials = flow.credentials
+    request_session = requests.session()
+    cached_session = cachecontrol.CacheControl(request_session)
+    token_request = google.auth.transport.requests.Request(session=cached_session)
+
+    id_info = id_token.verify_oauth2_token(
+        credentials._id_token,
+        token_request,
+        GOOGLE_CLIENT_ID
+    )
+    session["google_id"] = id_info.get("sub")
+    session["email"] = id_info.get("email")
+    session["name"] = id_info.get("name")
+    session["picture"] = id_info.get("picture")
     
-    user = User.query.filter_by(email=session["email"]).first()
+    return redirect(url_for("dashboard"))
 
-    if not user:
-        session.clear()
-        return redirect(url_for("login"))
 
-    return render_template("dashboard.html", name=user.name, surname=user.surname, email=user.email)
+@app.route("/dashboard")
+@login_is_required
+def dashboard():
+    user = User.query.filter_by(email=session.get("email")).first()
+    
+    if user:
+        name = user.name
+        surname = user.surname
+    else:
+        name = session.get("name", "Google User")
+        surname = ""
+    return render_template("dashboard.html", name=name, surname=surname, email=session.get("email"))
+
 
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("home"))
 
+
 @app.route("/create-game", methods=["GET", "POST"])
+@login_is_required
 def create_game():
-    if "email" not in session:
-        return render_template("log-in.html", error="You must be logged in to create a game.")
-    
-    user = User.query.filter_by(email=session["email"]).first()
-    if not user:
-        session.clear()
-        return render_template("log-in.html", error="Session expired. Please log in again.")
-    
+    user = User.query.filter_by(email=session.get("email")).first()
     if request.method == "POST":
         game_name = request.form.get("game_name")
         date = request.form.get("date")
@@ -132,40 +186,39 @@ def create_game():
         age = request.form.get("age")
         description = request.form.get("description")
 
-        if not game_name or not date or not time or not location or not sports_type or not player_capacity or not price or not age:
+        if not all([game_name, date, time, location, sports_type, player_capacity, price, age]):
             return render_template("create-game.html", error="Please fill in all required fields.")
 
         try:
             player_capacity = int(player_capacity)
             price = float(price)
         except ValueError:
-            return render_template("create-game.html", error="Capacity must be a number and price must be numeric.")
-        
-        
+            return render_template("create-game.html", error="Invalid capacity or price format.")
 
-
-        new_game = Game(game_name=game_name,
-                        date=date, time=time,
-                        location=location,
-                        sports_type=sports_type,
-                        player_capacity=player_capacity,
-                        price=price,
-                        age=age,
-                        description=description,
-                        creator_id=user.id)
-        
+        new_game = Game(
+            game_name=game_name,
+            date=date,
+            time=time,
+            location=location,
+            sports_type=sports_type,
+            player_capacity=player_capacity,
+            price=price,
+            age=age,
+            description=description,
+            creator_id=user.id if user else None
+        )
         db.session.add(new_game)
         db.session.commit()
-        games = Game.query.all()
-        return render_template("available-games.html", games=games, success="Game created successfully!")
-    
+        return redirect(url_for("available_games"))
+
     return render_template("create-game.html")
 
+
 @app.route("/available-games")
+@login_is_required
 def available_games():
     games = Game.query.all()
     return render_template("available-games.html", games=games)
-
 
 
 if __name__ == "__main__":

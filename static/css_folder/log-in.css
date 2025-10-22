@@ -151,6 +151,10 @@ input:focus {
     gap: 10px;
 }
 
+a{
+    text-decoration: none;
+}
+
 .btn-google:hover {
     background-color: #a7f3d0;
 }

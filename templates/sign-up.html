@@ -59,10 +59,10 @@
 
             <!-- Buttons -->
             <button type="submit" class="btn btn-primary">Create account</button>
-            <button type="button" class="btn btn-google">
+            <a href="{{ url_for('google_login') }}" type="button" class="btn btn-google">
                 <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Logo" width="20">
                 Continue with Google
-            </button>
+            </a>
         </form>
 
         <div class="login-link">

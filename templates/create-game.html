@@ -27,12 +27,13 @@
 
             <div id="header-right">
                 <div class="btns">
-                    <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">
-                        Sign Up
-                    </a>
-                    <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">
-                        Login
-                    </a>
+                {% if "email" in session %}
+                    <a href="{{ url_for('dashboard') }}" class="btn" id="sign-up-btn">Dashboard</a>
+                    <a href="{{ url_for('logout') }}" class="btn" id="join-now-btn">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">Sign Up</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">Login</a>
+                {% endif %}
                 </div>
 
                 <!-- Hamburger -->
@@ -107,8 +108,8 @@
                             <label for="age">Age</label>
                             <select id="age" name="age">
                                 <option>Any</option>
-                                <option>Under 15</option>
-                                <option>15-17</option>
+                                <option>Under 13</option>
+                                <option>13-17</option>
                                 <option>18-35</option>
                                 <option>35+</option>
                             </select>
