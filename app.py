@@ -6,29 +6,45 @@ import google.auth.transport.requests
 import cachecontrol
 import requests
 import os
-import pathlib
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()  # Load secrets from .env
 
+# ----------------------- App Setup -----------------------
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///footmatch.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
-client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # Only for local testing
 
-flow = Flow.from_client_secrets_file(
-    client_secrets_file=client_secrets_file,
-    scopes=["https://www.googleapis.com/auth/userinfo.profile", 
-            "https://www.googleapis.com/auth/userinfo.email", 
-            "openid"],
-    redirect_uri="http://127.0.0.1:5000/callback"
+# ----------------------- Google OAuth Setup -----------------------
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+REDIRECT_URI = os.getenv("REDIRECT_URI", "http://127.0.0.1:5000/callback")
+
+client_config = {
+    "web": {
+        "client_id": GOOGLE_CLIENT_ID,
+        "client_secret": GOOGLE_CLIENT_SECRET,
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "redirect_uris": [REDIRECT_URI]
+    }
+}
+
+flow = Flow.from_client_config(
+    client_config,
+    scopes=[
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+        "openid"
+    ],
+    redirect_uri=REDIRECT_URI
 )
 
 # ----------------------- Helpers -----------------------
@@ -39,7 +55,6 @@ def login_is_required(f):
             return render_template("log-in.html", error="You must be logged in to access this page.")
         return f(*args, **kwargs)
     return wrapper
-
 
 # ----------------------- Models -----------------------
 class User(db.Model):
@@ -55,7 +70,6 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     game_name = db.Column(db.String(100), nullable=False)
@@ -70,13 +84,11 @@ class Game(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     creator = db.relationship('User', backref='games')
 
-
 # ----------------------- Routes -----------------------
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template("home.html")
-
 
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -107,7 +119,6 @@ def sign_up():
 
     return render_template("sign-up.html", error=error)
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
@@ -120,18 +131,16 @@ def login():
         return render_template("log-in.html", error="Invalid email or password.")
     return render_template("log-in.html")
 
-
 @app.route("/google-login")
 def google_login():
     authorization_url, state = flow.authorization_url()
     session["state"] = state
     return redirect(authorization_url)
 
-
 @app.route("/callback")
 def callback():
     flow.fetch_token(authorization_response=request.url)
-    if not session["state"] == request.args["state"]:
+    if not session.get("state") == request.args.get("state"):
         abort(500)
     credentials = flow.credentials
     request_session = requests.session()
@@ -150,12 +159,10 @@ def callback():
     
     return redirect(url_for("dashboard"))
 
-
 @app.route("/dashboard")
 @login_is_required
 def dashboard():
     user = User.query.filter_by(email=session.get("email")).first()
-    
     if user:
         name = user.name
         surname = user.surname
@@ -164,12 +171,10 @@ def dashboard():
         surname = ""
     return render_template("dashboard.html", name=name, surname=surname, email=session.get("email"))
 
-
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("home"))
-
 
 @app.route("/create-game", methods=["GET", "POST"])
 @login_is_required
@@ -213,14 +218,13 @@ def create_game():
 
     return render_template("create-game.html")
 
-
 @app.route("/available-games")
 @login_is_required
 def available_games():
     games = Game.query.all()
     return render_template("available-games.html", games=games)
 
-
+# ----------------------- Run App -----------------------
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
