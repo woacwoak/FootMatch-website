@@ -76,6 +76,7 @@ nav#header-nav {
 nav#header-nav a {
     font-size: 16px;
     font-weight: 500;
+    cursor: pointer;
 }
 nav#hamburger-header-nav {
     display: none;
@@ -296,6 +297,7 @@ li {
 li a {
     font-size: 18px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 
