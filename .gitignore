@@ -17,6 +17,7 @@ client_secret.json
 
 # SQLite database
 footmatch.db
+instance/*.db
 *.sqlite3
 
 # IDEs
