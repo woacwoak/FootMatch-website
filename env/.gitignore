@@ -1,6 +1,31 @@
-.env
-client_secret.json
+# Python
 __pycache__/
 *.pyc
-instance/
-.env.*
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+env/
+venv/
+ENV/
+.venv/
+
+# Flask secret & OAuth keys
+.env
+client_secret.json
+
+# SQLite database
+footmatch.db
+*.sqlite3
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
