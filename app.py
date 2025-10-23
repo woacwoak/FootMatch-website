@@ -10,21 +10,23 @@ from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from dotenv import load_dotenv
 
-load_dotenv()  # Load secrets from .env
+load_dotenv()
 
-# ----------------------- App Setup -----------------------
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///footmatch.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  # Only for local testing
+if os.getenv("FLASK_ENV") == "development":
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-# ----------------------- Google OAuth Setup -----------------------
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-REDIRECT_URI = os.getenv("REDIRECT_URI", "http://127.0.0.1:5000/callback")
+if os.getenv("RENDER"):
+    REDIRECT_URI = "https://footmatch-website.onrender.com/callback"
+else:
+    REDIRECT_URI = "http://127.0.0.1:5000/callback"
 
 client_config = {
     "web": {
@@ -47,7 +49,7 @@ flow = Flow.from_client_config(
     redirect_uri=REDIRECT_URI
 )
 
-# ----------------------- Helpers -----------------------
+
 def login_is_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -56,7 +58,7 @@ def login_is_required(f):
         return f(*args, **kwargs)
     return wrapper
 
-# ----------------------- Models -----------------------
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -84,7 +86,6 @@ class Game(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     creator = db.relationship('User', backref='games')
 
-# ----------------------- Routes -----------------------
 @app.route('/')
 @app.route('/home')
 def home():
