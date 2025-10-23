@@ -32,6 +32,9 @@
                         {% if "email" in session %}
                             <a href="{{ url_for('dashboard') }}" class="btn" id="sign-up-btn">Dashboard</a>
                             <a href="{{ url_for('logout') }}" class="btn" id="join-now-btn">Logout</a>
+                            <a href="{{url_for('dashboard')}}">
+                                <img src="{{ picture }}" alt="Profile Picture" class="profile-pic">
+                            </a>
                         {% else %}
                             <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">Sign Up</a>
                             <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">Login</a>

@@ -168,8 +168,18 @@ def dashboard():
     else:
         name = session.get("name", "Google User")
         surname = ""
-    return render_template("dashboard.html", name=name, surname=surname, email=session.get("email"))
+        picture = session.get("picture")
+    return render_template("dashboard.html", name=name, surname=surname, email=session.get("email"), picture=picture)
 
+@app.context_processor
+def inject_user_info():
+    user_picture = session.get("picture")
+    default_picture = url_for('static', filename='assets/profile-picture.png')
+    return dict(
+        picture=user_picture or default_picture,
+        email=session.get("email"),
+        name=session.get("name", "User")
+    )
 @app.route("/logout")
 def logout():
     session.clear()

@@ -84,6 +84,14 @@ nav#hamburger-header-nav {
     justify-content: center;
 }
 
+img.profile-pic {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
 .hamburger {
     display: none;
 }

@@ -114,6 +114,14 @@ body {
     background-color: #149543;
 }
 
+img.profile-pic {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
 .details-btn {
     background-color: #ffffff;
     border: 1px solid #E2E2E2;
@@ -194,3 +202,4 @@ body {
     color: #18b652;
     text-decoration: underline;
 }
+

@@ -131,6 +131,14 @@ button:hover, .btn:hover {
     background-color: #15803d;
 }
 
+img.profile-pic {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
 /* ===== Form Inputs ===== */
 h2{
     color: #16a34a;
