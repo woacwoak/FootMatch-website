@@ -23,10 +23,8 @@ if os.getenv("FLASK_ENV") == "development":
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-if os.getenv("RENDER"):
-    REDIRECT_URI = "https://footmatch-website.onrender.com/callback"
-else:
-    REDIRECT_URI = "http://127.0.0.1:5000/callback"
+
+REDIRECT_URI = os.getenv("REDIRECT_URI") or "http://127.0.0.1:5000/callback"
 
 client_config = {
     "web": {
