@@ -35,85 +35,6 @@ a:hover { color: #16a34a; }
     transition: all 0.3s;
 }
 
-/* ================= HEADER ================= */
-header {
-    background-color: white;
-    border-bottom: 1px solid #ddd;
-    position: relative;
-}
-
-.header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px 20px;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 0px;
-}
-
-
-#title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #16a34a;
-}
-
-nav#header-nav {
-    display: flex;
-    gap:50px;
-}
-nav#header-nav a {
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-}
-nav#hamburger-header-nav {
-    display: none;
-    gap: 50px;
-    justify-content: center;
-}
-
-img.profile-pic {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    object-fit: cover;
-    vertical-align: middle;
-}
-
-.hamburger {
-    display: none;
-}
-
-
-#sign-up-btn {
-    color: #3b82f6;
-    background-color: transparent;
-    border: 2px solid #3b82f6;
-}
-#sign-up-btn:hover {
-    color: white;
-    background-color: #3b82f6;
-}
-#join-now-btn {
-    color: white;
-    background-color: #16a34a;
-}
-#join-now-btn:hover {
-    background-color: #15803d;
-}
-
 /* ================= HERO SECTION ================= */
 #hero-container {
     background-color: #16A34A;
@@ -354,90 +275,6 @@ hr {
 }
 
 @media (max-width: 768px) {
-    .header-container {
-        justify-content: space-between;
-    }
-    nav#header-nav {
-        display: none;
-    }
-    #map-section {
-        height: 680px;
-    }
-
-    #header-right {
-        display: flex;
-        flex-direction:row;
-        align-items: center;
-        gap: 30px;
-    }
-
-    nav#hamburger-header-nav {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background-color: white;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        border-top: 1px solid #ddd;
-        z-index: 1000;
-        padding: 0px 0;
-    }
-
-    nav#hamburger-header-nav.nav-open {
-        display: flex;
-        gap:0px;
-    }
-
-    nav#hamburger-header-nav a {
-        font-size: 20px;
-        padding: 10px 0;
-        text-align: center;
-        width: 100%;
-        border-bottom: 1px solid #eee;
-    }
-
-
-
-
-    .hamburger {
-        display: flex;
-        flex-wrap: wrap;
-        cursor: pointer;
-        width: 34px;
-    }
-    .hamburger .bar {
-        width: 28px;
-        height: 3px;
-        background-color: #16a34a;
-        margin: 4px 0;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-
-
-    #hamburger-header-nav a {
-        font-size: 20px;
-        color: black;
-        font-weight: 100;
-        padding: 10px 0;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-
-    }
-
-
-
-    
-
-
-    header .btn {
-        font-size: 14px;
-        padding: 8px 16px;
-
-    }
-
     #hero-container h1 {
         font-size: 55px;
     }
@@ -488,12 +325,7 @@ hr {
     }
 }
 @media (max-width: 425px) {
-    #sign-up-btn {
-        display:none;
-    }
-    #join-now-btn {
-        display: none;
-    }
+
     #hero-container h1 {
         font-size: 36px;
     }
@@ -531,10 +363,6 @@ hr {
         height: 350px;
     }
 
-    .btn{
-        width: 150px;
-        height: 40px;;
-    }
     #create-account-btn, #explore-lobbies-btn{
         font-size: 14px;
         padding: 5px 5px;
@@ -553,10 +381,7 @@ hr {
 }
 
 @media (max-width: 375px){
-    .btn{
-        width: 150px;
-        height: 40px;;
-    }
+    
     #create-account-btn, #explore-lobbies-btn{
         font-size: 14px;
         padding: 5px 5px;
@@ -578,16 +403,9 @@ hr {
     .card-container{
         margin-bottom: 50px;
     }
-    .btn{
-        width: 125px;
-        height: 40px;;
-    }
-    .btn-spacer{
-        gap:7px;
-    }
-    #create-account-btn, #explore-lobbies-btn{
+    a#create-account-btn, a#explore-lobbies-btn{
         font-size: 12px;
-        padding: 5px 5px;
+        padding: 8px 5px;
     }
     #ready-to-start-section #ready-title {
         margin: 20px 10px 10px 10px;

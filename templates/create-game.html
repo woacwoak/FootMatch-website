@@ -9,53 +9,53 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
     <link rel="stylesheet" href="/static/css_folder/create_game.css" />
     <link rel="stylesheet" href="/static/css_folder/error-messages.css" />
+    <link rel="stylesheet" href="/static/css_folder/header.css"/>
     <script src="/static/js/navigation.js" defer></script>
 </head>
 
 <body>
     <!-- HEADER -->
     <header>
-        <div class="container header-container">
-            <h1 id="title">FootMatch</h1>
+            <div class="header-container">
+                <p id="title">FootMatch</p>
 
-            <nav id="header-nav">
-                <a href="{{ url_for('home') }}#header">Home</a>
-                <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
+                <nav id="header-nav">
+                    <a href="{{ url_for('home') }}#header">Home</a>
+                    <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
+                    <a href="{{ url_for('available_games') }}">Available Games</a>
+                    <a href="{{ url_for('create_game') }}">Create Game</a>
+                </nav>
+
+                <div id="header-right">
+                    
+                    <div class="btn-spacer">
+                        {% if "email" in session %}
+                            <a href="{{ url_for('dashboard') }}" class="btn" id="sign-up-btn">Dashboard</a>
+                            <a href="{{ url_for('logout') }}" class="btn" id="join-now-btn">Logout</a>
+                            <a href="{{url_for('dashboard')}}">
+                                <img src="{{ picture }}" alt="Profile Picture" class="profile-pic">
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">Sign Up</a>
+                            <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">Login</a>
+                        {% endif %}
+                    </div>
+
+                    <div class="hamburger">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <nav id="hamburger-header-nav">
+                <a href="#header">Home</a>
+                <a href="#how-it-works">How It Works</a>
                 <a href="{{ url_for('available_games') }}">Available Games</a>
                 <a href="{{ url_for('create_game') }}">Create Game</a>
             </nav>
-
-            <div id="header-right">
-                <div class="btns">
-                {% if "email" in session %}
-                    <a href="{{ url_for('dashboard') }}" class="btn" id="sign-up-btn">Dashboard</a>
-                    <a href="{{ url_for('logout') }}" class="btn" id="join-now-btn">Logout</a>
-                    <a href="{{url_for('dashboard')}}">
-                        <img src="{{ picture }}" alt="Profile Picture" class="profile-pic">
-                    </a>
-                {% else %}
-                    <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">Sign Up</a>
-                    <a href="{{ url_for('login') }}" class="btn btn-green" id="join-now-btn">Login</a>
-                {% endif %}
-                </div>
-
-                <!-- Hamburger -->
-                <div class="hamburger" id="menu-toggle">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Hamburger Nav -->
-        <nav id="hamburger-header-nav">
-            <a href="{{ url_for('home') }}#header">Home</a>
-            <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
-            <a href="{{ url_for('available_games') }}">Available Games</a>
-            <a href="{{ url_for('create_game') }}">Create Game</a>
-        </nav>
-    </header>
+        </header>
 
     <!-- MAIN FORM -->
     <main>

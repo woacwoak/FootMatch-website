@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/header.css') }}">
     <script src="{{ url_for('static', filename='js/navigation.js') }}" defer></script>
 </head>
 
@@ -21,8 +22,8 @@
                 <p id="title">FootMatch</p>
 
                 <nav id="header-nav">
-                    <a href="#header">Home</a>
-                    <a href="#how-it-works">How It Works</a>
+                    <a href="{{ url_for('home') }}#header">Home</a>
+                    <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
                     <a href="{{ url_for('available_games') }}">Available Games</a>
                     <a href="{{ url_for('create_game') }}">Create Game</a>
                 </nav>
@@ -34,11 +35,7 @@
                             <a href="{{ url_for('dashboard') }}" class="btn" id="sign-up-btn">Dashboard</a>
                             <a href="{{ url_for('logout') }}" class="btn" id="join-now-btn">Logout</a>
                             <a href="{{url_for('dashboard')}}">
-                                <img
-                                    src="{{ picture if picture else url_for('static', filename='assets/profile-picture.png') }}"
-                                    alt="Profile Picture"
-                                    class="profile-pic"
-                                >
+                                <img src="{{ picture }}" alt="Profile Picture" class="profile-pic">
                             </a>
                         {% else %}
                             <a href="{{ url_for('sign_up') }}" class="btn" id="sign-up-btn">Sign Up</a>

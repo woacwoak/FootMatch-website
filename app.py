@@ -165,6 +165,7 @@ def dashboard():
     if user:
         name = user.name
         surname = user.surname
+        picture = session.get("picture") or url_for('static', filename='assets/profile-picture.png')
     else:
         name = session.get("name", "Google User")
         surname = ""
