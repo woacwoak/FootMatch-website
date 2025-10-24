@@ -84,6 +84,15 @@ class Game(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     creator = db.relationship('User', backref='games')
 
+class GamePlayer(db.Model):
+    __tablename__ = 'game_player'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
+
+    user = db.relationship('User', backref='joined_games')
+    game = db.relationship('Game', backref='players')
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -151,10 +160,25 @@ def callback():
         token_request,
         GOOGLE_CLIENT_ID
     )
+    email = id_info.get("email")
+    name = id_info.get("name")
+
     session["google_id"] = id_info.get("sub")
     session["email"] = id_info.get("email")
     session["name"] = id_info.get("name")
     session["picture"] = id_info.get("picture")
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user:
+        new_user = User(
+            name=name.split()[0],
+            surname="",
+            email=email,
+            password=generate_password_hash(os.urandom(16).hex())  # random password for Google user
+        )
+        db.session.add(new_user)
+        db.session.commit()
     
     return redirect(url_for("dashboard"))
 
@@ -233,6 +257,28 @@ def create_game():
 def available_games():
     games = Game.query.all()
     return render_template("available-games.html", games=games)
+
+@app.route("/join-game/<int:game_id>", methods=["POST"])
+@login_is_required
+def join_game(game_id):
+    user = User.query.filter_by(email=session.get("email")).first()
+    game = Game.query.get_or_404(game_id)
+
+    # Check if already joined
+    existing = GamePlayer.query.filter_by(user_id=user.id, game_id=game.id).first()
+    if existing:
+        return redirect(url_for("available_games", success="You have already joined this game."))
+
+    # Check if capacity reached
+    if len(game.players) >= game.player_capacity:
+        return render_template("available-games.html", games=Game.query.all(), error="This game is already full.")
+
+    new_join = GamePlayer(user_id=user.id, game_id=game.id)
+    db.session.add(new_join)
+    db.session.commit()
+
+    success_message = f"You have successfully joined {game.game_name}!"
+    return redirect(url_for("available_games", success=success_message))
 
 
 if __name__ == "__main__":
