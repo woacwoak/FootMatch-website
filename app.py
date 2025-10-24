@@ -18,14 +18,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///footmatch.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-# if os.getenv("FLASK_ENV") == "development":
-#     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # Enable HTTP for OAuth in development. REMOVVE IN PRODUCTION!
+if os.getenv("FLASK_ENV") == "development":
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # Enable HTTP for OAuth in development. REMOVE IN PRODUCTION!
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 
-REDIRECT_URI = os.getenv("REDIRECT_URI") 
-# or "http://127.0.0.1:5000/callback" # Update as needed for production
+REDIRECT_URI = "http://127.0.0.1:5000/callback" # Update as needed for production # os.getenv("REDIRECT_URI") or 
 
 client_config = {
     "web": {
