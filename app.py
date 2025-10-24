@@ -256,7 +256,9 @@ def create_game():
 @login_is_required
 def available_games():
     games = Game.query.all()
-    return render_template("available-games.html", games=games)
+    error = request.args.get("error")
+    success = request.args.get("success")
+    return render_template("available-games.html", games=games, error=error, success=success)
 
 @app.route("/join-game/<int:game_id>", methods=["POST"])
 @login_is_required
@@ -264,14 +266,14 @@ def join_game(game_id):
     user = User.query.filter_by(email=session.get("email")).first()
     game = Game.query.get_or_404(game_id)
 
-    # Check if already joined
+    # if already joined
     existing = GamePlayer.query.filter_by(user_id=user.id, game_id=game.id).first()
     if existing:
         return redirect(url_for("available_games", success="You have already joined this game."))
 
-    # Check if capacity reached
+    # if capacity reached
     if len(game.players) >= game.player_capacity:
-        return render_template("available-games.html", games=Game.query.all(), error="This game is already full.")
+        return redirect(url_for("available_games", error="This game is already full."))
 
     new_join = GamePlayer(user_id=user.id, game_id=game.id)
     db.session.add(new_join)
