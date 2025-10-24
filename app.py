@@ -19,12 +19,12 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 if os.getenv("FLASK_ENV") == "development":
-    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # Enable HTTP for OAuth in development. REMOVVE IN PRODUCTION!
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 
-REDIRECT_URI = os.getenv("REDIRECT_URI") or "http://127.0.0.1:5000/callback"
+REDIRECT_URI = os.getenv("REDIRECT_URI") or "http://127.0.0.1:5000/callback" # Update as needed for production
 
 client_config = {
     "web": {
@@ -234,7 +234,7 @@ def available_games():
     games = Game.query.all()
     return render_template("available-games.html", games=games)
 
-# ----------------------- Run App -----------------------
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

@@ -95,6 +95,15 @@ img.profile-pic {
 #join-now-btn:hover {
     background-color: #15803d;
 }
+@media (max-width: 1024px) {
+    nav#header-nav {
+        gap: 30px;
+        font-size: 16px;
+    }
+    nav#header-nav a {
+        font-size: 15px;
+    }
+}
 
 @media (max-width: 768px) {
     .header-container {
@@ -136,8 +145,6 @@ img.profile-pic {
         width: 100%;
         border-bottom: 1px solid #eee;
     }
-
-
 
 
     .hamburger {
@@ -183,6 +190,9 @@ img.profile-pic {
         width: 150px;
         height: 40px;;
     }
+    div#header-right{
+        gap:20px;
+    }
 }
 
 @media (max-width: 375px){
@@ -193,6 +203,9 @@ img.profile-pic {
     #create-account-btn, #explore-lobbies-btn{
         font-size: 14px;
         padding: 5px 5px;
+    }
+    div#header-right{
+        gap:15px;
     }
 }
 @media(max-width:320px){
