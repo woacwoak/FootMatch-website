@@ -12,7 +12,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/error-messages.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css_folder/header.css') }}">
     <script src="{{ url_for('static', filename='js/navigation.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='js/description.js') }}" defer></script>
 </head>
+
+<div id="gameModal" class="modal">
+  <div class="modal-content">
+    <h3 id="modalGameTitle">Game Title</h3>
+    <p id="modalGameInfo">Game details will appear here.</p>
+    <button class="btn close-btn" onclick="closeModal()">Close</button>
+  </div>
+</div>
 
 <body>
     <!--HEADER-->
@@ -94,7 +103,14 @@
                                 <form action="{{ url_for('join_game', game_id=game.id) }}" method="POST" style="display:inline;">
                                     <button type="submit" class="btn join-btn">Join Now</button>
                                 </form>
-                                <button class="btn details-btn">Details</button>
+                                <button
+                                    class="btn details-btn"
+                                    data-title="{{ game.game_name }}"
+                                    data-info="Name: {{game_name}} Date: {{date}} Time: {{time}} Type: {{ game.sports_type }} Players: {{ game.players|length }}/{{ game.player_capacity }} Price: {% if game.price == 0 %}Free{% else %}€{{ game.price }}{% endif %} Age: {{age}} Description: {{description}}">Details
+                                </button>
+                            
+                            
+                            
                             </div>
                         </div>
                         <span class="price-tag {% if game.price == 0 %}free{% else %}paid{% endif %}">
