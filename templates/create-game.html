@@ -50,8 +50,8 @@
             </div>
 
             <nav id="hamburger-header-nav">
-                <a href="#header">Home</a>
-                <a href="#how-it-works">How It Works</a>
+                <a href="{{ url_for('home') }}#header">Home</a>
+                <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
                 <a href="{{ url_for('available_games') }}">Available Games</a>
                 <a href="{{ url_for('create_game') }}">Create Game</a>
             </nav>

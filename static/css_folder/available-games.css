@@ -155,6 +155,15 @@ body {
     background-color: #149543;
 }
 
+.leave-btn {
+    background-color: red;
+    color: white;
+}
+
+.leave-btn:hover {
+    background-color: rgb(227, 0, 0);
+}
+
 img.profile-pic {
     width: 42px;
     height: 42px;
@@ -223,7 +232,8 @@ button.btn.details-btn {
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     max-width: 600px;
-    margin: 3rem auto;
+    margin: 80px auto;
+    margin-bottom: 200px;
     transition: all 0.3s ease;
 }
 
@@ -244,3 +254,13 @@ button.btn.details-btn {
     text-decoration: underline;
 }
 
+#modalGameTitle {
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+}
+#modalGameInfo {
+    font-size: 18px;
+    color: #666;
+    margin: 0.2rem 0;
+    white-space: pre-wrap;
+}

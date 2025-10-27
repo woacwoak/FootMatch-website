@@ -118,6 +118,7 @@ def sign_up():
             db.session.add(new_user)
             db.session.commit()
             session["email"] = email
+            session["user_id"] = new_user.id
             return redirect(url_for("dashboard"))
 
     return render_template("sign-up.html", error=error)
@@ -130,6 +131,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and user.check_password(password):
             session["email"] = email
+            session["user_id"] = user.id
             return redirect(url_for("dashboard"))
         return render_template("log-in.html", error="Invalid email or password.")
     return render_template("log-in.html")
@@ -180,22 +182,20 @@ def callback():
         #Store info in session
         google_id = id_info.get("sub")
         email = id_info.get("email")
-        name = id_info.get("name", "")
+        first_name = id_info.get("given_name", "User")
+        last_name = id_info.get("family_name", "")
         picture = id_info.get("picture")
-        #Store user info
+
         session.permanent = True
         session["google_id"] = google_id
         session["email"] = email
-        session["name"] = name
+        session["name"] = first_name
+        session["surname"] = last_name
         session["picture"] = picture
 
         #Check if user in DB
         user = User.query.filter_by(email=email).first()
-        if user:
-            session["email"] = user.email
-        else:
-            first_name = name.split()[0] if name else "User"
-            last_name = " ".join(name.split()[1:]) if len(name.split()) > 1 else ""
+        if not user:
             new_user = User(
                 name=first_name,
                 surname=last_name,
@@ -204,6 +204,9 @@ def callback():
             )
             db.session.add(new_user)
             db.session.commit()
+            user = new_user
+        
+        session["user_id"] = user.id
             
         return redirect(url_for("dashboard"))
 
@@ -286,7 +289,6 @@ def create_game():
     return render_template("create-game.html")
 
 @app.route("/available-games")
-@login_is_required
 def available_games():
     games = Game.query.all()
     error = request.args.get("error")
@@ -313,6 +315,22 @@ def join_game(game_id):
     db.session.commit()
 
     success_message = f"You have successfully joined {game.game_name}!"
+    return redirect(url_for("available_games", success=success_message))
+
+@app.route("/leave-game/<int:game_id>", methods=["POST"])
+@login_is_required
+def leave_game(game_id):
+    user = User.query.filter_by(email=session.get("email")).first()
+    game = Game.query.get_or_404(game_id)
+
+    existing = GamePlayer.query.filter_by(user_id=user.id, game_id=game.id).first()
+    if existing:
+        db.session.delete(existing)
+        db.session.commit()
+        success_message = f"You have successfully left {game.game_name}!"
+    else:
+        success_message = f"You are not part of {game.game_name}."
+
     return redirect(url_for("available_games", success=success_message))
 
 

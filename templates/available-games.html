@@ -60,8 +60,8 @@
             </div>
 
             <nav id="hamburger-header-nav">
-                <a href="#header">Home</a>
-                <a href="#how-it-works">How It Works</a>
+                <a href="{{ url_for('home') }}#header">Home</a>
+                <a href="{{ url_for('home') }}#how-it-works">How It Works</a>
                 <a href="{{ url_for('available_games') }}">Available Games</a>
                 <a href="{{ url_for('create_game') }}">Create Game</a>
             </nav>
@@ -91,22 +91,36 @@
                             <div class="game-info">
                                 <h2>{{ game.game_name }}</h2>
                                 <p class="info">
-                                    <span>{{ game.players|length }}/{{ game.player_capacity }} players</span> | Type: {{ game.sports_type }}
+                                    <span>{{ game.players|length }}/{{ game.player_capacity }} players</span> | Type: {{ game.sports_type }} | Age: {{ game.age }}
                                 </p>
                                 <p class="info">
-                                    <span>{{ game.player_capacity }} players max</span> | Type: {{ game.sports_type }}
+                                    <span>{{ game.date }}</span> | Time: {{ game.time }} | Location: {{ game.location }}
+                                    {% if session.get("user_id") %}
+                                        {% set joined = game.players|selectattr("user_id", "equalto", session["user_id"])|list %}
+                                    {% else %}
+                                        {% set joined = [] %}
+                                    {% endif %}
+
                                 </p>
                             </div>
                         </div>
                         <div class="game-card-bottom">
                             <div class="buttons">
                                 <form action="{{ url_for('join_game', game_id=game.id) }}" method="POST" style="display:inline;">
+                                {% if joined %}
+                                    <button type="submit" class="btn leave-btn" formaction="{{ url_for('leave_game', game_id=game.id) }}">
+                                        Leave Game
+                                    </button>
+                                {% elif game.players|length >= game.player_capacity %}
+                                    <button type="button" class="btn join-btn" disabled>Full</button>
+                                {% else %}
                                     <button type="submit" class="btn join-btn">Join Now</button>
+                                {% endif %}
                                 </form>
                                 <button
                                     class="btn details-btn"
                                     data-title="{{ game.game_name }}"
-                                    data-info="Name: {{game_name}} Date: {{date}} Time: {{time}} Type: {{ game.sports_type }} Players: {{ game.players|length }}/{{ game.player_capacity }} Price: {% if game.price == 0 %}Free{% else %}€{{ game.price }}{% endif %} Age: {{age}} Description: {{description}}">Details
+                                    data-info="Name: {{game.game_name}}; Date: {{game.date}}; Time: {{game.time}}; Type: {{ game.sports_type }}; Players: {{ game.players|length }}/{{ game.player_capacity }}; Price: {% if game.price == 0 %}Free{% else %}€{{ game.price }}{% endif %}; Age: {{game.age}}; Description: {{game.description}}">Details
                                 </button>
                             
                             
