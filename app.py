@@ -19,33 +19,28 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 if os.getenv("FLASK_ENV") == "development":
-    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # Enable HTTP for OAuth in development. REMOVE IN PRODUCTION!
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 
-REDIRECT_URI = "http://127.0.0.1:5000/callback" # Update as needed for production # os.getenv("REDIRECT_URI") or 
+def get_redirect_uri():
+    if os.getenv("FLASK_ENV") == "development":
+        return "http://127.0.0.1:5000/callback"
+    else:
+        return os.getenv("RENDER_URI")
 
-client_config = {
-    "web": {
-        "client_id": GOOGLE_CLIENT_ID,
-        "client_secret": GOOGLE_CLIENT_SECRET,
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "redirect_uris": [REDIRECT_URI]
+def get_client_config():
+    return {
+        "web": {
+            "client_id": GOOGLE_CLIENT_ID,
+            "client_secret": GOOGLE_CLIENT_SECRET,
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+            "redirect_uris": [get_redirect_uri()]
+        }
     }
-}
-
-flow = Flow.from_client_config(
-    client_config,
-    scopes=[
-        "https://www.googleapis.com/auth/userinfo.profile",
-        "https://www.googleapis.com/auth/userinfo.email",
-        "openid"
-    ],
-    redirect_uri=REDIRECT_URI
-)
 
 
 def login_is_required(f):
@@ -141,46 +136,84 @@ def login():
 
 @app.route("/google-login")
 def google_login():
+    flow = Flow.from_client_config(
+        get_client_config(),
+        scopes=[
+            "https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/userinfo.email",
+            "openid"
+        ],
+    redirect_uri=get_redirect_uri()
+)
     authorization_url, state = flow.authorization_url()
     session["state"] = state
     return redirect(authorization_url)
 
 @app.route("/callback")
 def callback():
-    flow.fetch_token(authorization_response=request.url)
-    if not session.get("state") == request.args.get("state"):
-        abort(500)
-    credentials = flow.credentials
-    request_session = requests.session()
-    cached_session = cachecontrol.CacheControl(request_session)
-    token_request = google.auth.transport.requests.Request(session=cached_session)
-
-    id_info = id_token.verify_oauth2_token(
-        credentials._id_token,
-        token_request,
-        GOOGLE_CLIENT_ID
-    )
-    email = id_info.get("email")
-    name = id_info.get("name")
-
-    session["google_id"] = id_info.get("sub")
-    session["email"] = id_info.get("email")
-    session["name"] = id_info.get("name")
-    session["picture"] = id_info.get("picture")
-
-    user = User.query.filter_by(email=email).first()
-
-    if not user:
-        new_user = User(
-            name=name.split()[0],
-            surname="",
-            email=email,
-            password=generate_password_hash(os.urandom(16).hex())  # random password for Google user
+    try:
+        flow = Flow.from_client_config(
+            get_client_config(),
+            scopes=[
+                "https://www.googleapis.com/auth/userinfo.profile",
+                "https://www.googleapis.com/auth/userinfo.email",
+                "openid"
+            ],
+            redirect_uri=get_redirect_uri()
         )
-        db.session.add(new_user)
-        db.session.commit()
-    
-    return redirect(url_for("dashboard"))
+
+        flow.fetch_token(authorization_response=request.url)
+
+        if session.get("state") != request.args.get("state"):
+            abort(400, "Invalid state parameter")
+
+        credentials = flow.credentials
+        request_session = requests.session()
+        cached_session = cachecontrol.CacheControl(request_session)
+        token_request = google.auth.transport.requests.Request(session=cached_session)
+
+        id_info = id_token.verify_oauth2_token(
+            credentials._id_token,
+            token_request,
+            GOOGLE_CLIENT_ID
+        )
+        #Store info in session
+        google_id = id_info.get("sub")
+        email = id_info.get("email")
+        name = id_info.get("name", "")
+        picture = id_info.get("picture")
+        #Store user info
+        session.permanent = True
+        session["google_id"] = google_id
+        session["email"] = email
+        session["name"] = name
+        session["picture"] = picture
+
+        #Check if user in DB
+        user = User.query.filter_by(email=email).first()
+        if user:
+            session["email"] = user.email
+        else:
+            first_name = name.split()[0] if name else "User"
+            last_name = " ".join(name.split()[1:]) if len(name.split()) > 1 else ""
+            new_user = User(
+                name=first_name,
+                surname=last_name,
+                email=email,
+                password=generate_password_hash(os.urandom(16).hex())  # random password
+            )
+            db.session.add(new_user)
+            db.session.commit()
+            
+        return redirect(url_for("dashboard"))
+
+    except Exception as e:
+        print("Google login error:", e)
+        return render_template(
+            "log-in.html",
+            error="Google login failed. Please try again."
+        )
+
 
 @app.route("/dashboard")
 @login_is_required
