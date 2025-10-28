@@ -41,6 +41,8 @@ a:hover { color: #16a34a; }
     padding: 90px 0 110px;
     margin: 0 auto;
     text-align: center;
+    background-image: url('/static/assets/hero-background.png');
+    background-position: center center;
 }
 
 .hero-title {
