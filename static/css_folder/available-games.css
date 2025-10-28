@@ -92,6 +92,7 @@ body {
     align-items: center;
     height: 70px;
     width: 70px;
+    aspect-ratio: 1 / 1;
     margin-right: 1rem;
 }
 
@@ -258,6 +259,27 @@ body {
     margin-bottom: 100px;
 }
 
-/* RESPONSIVE */
-@media (min-width: 425px) {
+@media (max-width: 768px) {
+    .img-background {
+        margin: 0 0 0.5rem 0;
+        align-self: flex-start;
+    }
+
+    .game-info {
+        width: 100%;
+    }
+    
+    .img-background {
+        height: 55px;
+        width: 55px;
+        margin-right: 0.8rem;
+    }
+
+
+    .img-background img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 }
