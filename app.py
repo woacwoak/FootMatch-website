@@ -42,7 +42,6 @@ def get_client_config():
         }
     }
 
-
 def login_is_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -75,6 +74,7 @@ class Game(db.Model):
     player_capacity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
     age = db.Column(db.String(15), nullable=False)
+
     description = db.Column(db.String(300))
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     creator = db.relationship('User', backref='games')
@@ -316,6 +316,7 @@ def join_game(game_id):
 
     success_message = f"You have successfully joined {game.game_name}!"
     return redirect(url_for("available_games", success=success_message))
+    
 
 @app.route("/leave-game/<int:game_id>", methods=["POST"])
 @login_is_required
@@ -332,6 +333,22 @@ def leave_game(game_id):
         success_message = f"You are not part of {game.game_name}."
 
     return redirect(url_for("available_games", success=success_message))
+
+@app.route("/available-games/delete/<int:game_id>", methods=["POST"], endpoint="delete_game")
+def delete_game(game_id):
+    if "user_id" not in session:
+        return redirect(url_for("login", error="Please log in to delete a game."))
+    
+    game = Game.query.get(game_id)
+    if not game:
+        return redirect(url_for("available_games", error="Game not found."))
+    if game.creator_id != session["user_id"]:
+        return redirect(url_for("available_games", error="You do not have permission to delete this game."))
+    
+    db.session.delete(game)
+    db.session.commit()
+    return redirect(url_for("available_games", success="Game deleted successfully."))
+
 
 
 if __name__ == "__main__":
