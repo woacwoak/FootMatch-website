@@ -202,18 +202,9 @@ button.btn.details-btn {
 }
 
 .view-more {
-    text-align: center;
-    margin: 2rem 0;
+    margin-bottom: 100px;
 }
 
-.view-more-btn {
-    background-color: #16a34a;
-    color: #fff;
-    padding: 0.7rem 1.5rem;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-}
 
 .view-more-btn:hover {
     background-color: #149543;
