@@ -288,12 +288,29 @@ def create_game():
 
     return render_template("create-game.html")
 
+from datetime import datetime, timedelta
+
 @app.route("/available-games")
 def available_games():
     games = Game.query.all()
     error = request.args.get("error")
     success = request.args.get("success")
-    return render_template("available-games.html", games=games, error=error, success=success)
+    
+    # Filter out games that expired 24 hours after their scheduled time
+    active_games = []
+    current_time = datetime.now()
+    for game in games:
+        try:
+            game_datetime = datetime.strptime(f"{game.date} {game.time}", "%Y-%m-%d %H:%M")
+            expiration_time = game_datetime + timedelta(hours=24)
+            if current_time < expiration_time:
+                active_games.append(game)
+        except ValueError:
+            # Handle cases where date/time format might be incorrect
+            # For simplicity, we'll just skip them
+            pass
+            
+    return render_template("available-games.html", games=active_games, error=error, success=success)
 
 @app.route("/join-game/<int:game_id>", methods=["POST"])
 @login_is_required
